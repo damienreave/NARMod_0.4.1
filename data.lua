@@ -1,0 +1,33 @@
+require("config")
+
+require("prototypes.assemblers")
+require("prototypes.asu")
+require("prototypes.categories")
+require("prototypes.ceramics")
+require("prototypes.chemicals")
+require("prototypes.concrete")
+require("prototypes.deposits")
+require("prototypes.electronics")
+require("prototypes.furnaces")
+require("prototypes.metallurgy")
+require("prototypes.misc")
+require("prototypes.module")
+require("prototypes.offworld-teleportation")
+require("prototypes.organics")
+require("prototypes.organics-buildings")
+require("prototypes.parts")
+require("prototypes.petrolium-products")
+require("prototypes.plates")
+require("prototypes.resources")
+require("prototypes.technology")
+require("prototypes.tree-prototypes")
+require("prototypes.vanilla-replace1")
+require("prototypes.vanilla-replace2")
+require("prototypes.vanilla-stack-size")
+require("prototypes.vanilla-warfare")
+
+if narmod.ChallengeMode == true then
+  require("prototypes.challengemode")
+  else
+	require("prototypes.normalmode")
+end
