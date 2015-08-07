@@ -188,6 +188,10 @@ data:extend({
       },
 	  {
         type = "unlock-recipe",
+        recipe = "sulfur-dioxide-to-atmosphere"
+      },
+	  {
+        type = "unlock-recipe",
         recipe = "argon-gas-to-atmosphere"
       },
     },
