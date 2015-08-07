@@ -1429,6 +1429,9 @@ data:extend({
         recipe = "zinc-concentrate"
       },
       {
+        type = "unlock-recipe",
+        recipe = "zinc-oxide"
+      },
 	  {
         type = "unlock-recipe",
         recipe = "zinc-sulphate"
@@ -1436,6 +1439,14 @@ data:extend({
 	  {
         type = "unlock-recipe",
         recipe = "zinc-electrolysis"
+      },
+	  {
+        type = "unlock-recipe",
+        recipe = "pure-zinc-melt"
+      },
+	  {
+        type = "unlock-recipe",
+        recipe = "pure-zinc-isp"
       },
 	  {
         type = "unlock-recipe",
