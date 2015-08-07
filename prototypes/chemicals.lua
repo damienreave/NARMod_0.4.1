@@ -1020,6 +1020,26 @@ data:extend(
     order = "b[fluid-chemistry]-f[sulfuric-acid]"
   },
   
+  {
+    type = "recipe",
+    name = "sulfur-dioxide-to-atmosphere",
+    category = "evaporator-crafting",
+	subgroup = "evaporation",
+	order = "c",
+    enabled = false,
+    energy_required = 10,
+    ingredients =
+    {
+		{type="fluid", name="sulfur-dioxide", amount=10}
+    },
+    results = 
+    {
+       {type="fluid", name="sulfur-dioxide", amount=1}
+    },
+    icon = "__NARMod__/graphics/icons/sulfur-dioxide-to-atmosphere.png",
+    order = "b[fluid-chemistry]-b"
+  },
+  
   -- NITRIC ACID
 
   {
