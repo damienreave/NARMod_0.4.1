@@ -121,7 +121,7 @@ data:extend(
 	--------------- COPPER PROCESSING ---------------
 	
 	-- LOW QUALITY COPPER PLATE
-	
+
 	{
 		type = "item",
 		name = "lq-copper-plate",
