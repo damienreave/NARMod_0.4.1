@@ -77,6 +77,10 @@ data:extend({
 			type = "unlock-recipe",
 			recipe = "copper-concentrate"
 		  },
+		  {
+			type = "unlock-recipe",
+			recipe = "crushed-stone"
+		  },
 		},
 		order = "a-a-a-a",
 	},
@@ -651,6 +655,10 @@ data:extend({
         type = "unlock-recipe",
         recipe = "sulfuric-acid"
       },
+	  {
+        type = "unlock-recipe",
+        recipe = "claus-process"
+      },
     },
   },
   
@@ -1078,7 +1086,7 @@ data:extend({
     {
       {
         type = "unlock-recipe",
-		recipe = "pumpjack",
+        recipe = "pumpjack"
       },
 	  {
         type = "unlock-recipe",
@@ -1397,7 +1405,7 @@ data:extend({
     icon = "__NARMod__/graphics/icons/technology/zinc-and-brass-processing.png",
     prerequisites =
     {
-	  "sulfur-processing",
+	  "tin-and-lead-processing",
     },
 	unit =
     {
@@ -1416,6 +1424,7 @@ data:extend({
         type = "unlock-recipe",
         recipe = "zinc-concentrate"
       },
+      {
 	  {
         type = "unlock-recipe",
         recipe = "zinc-sulphate"
@@ -1572,7 +1581,7 @@ data:extend({
 	icon="__NARMod__/graphics/icons/plate/aluminium-plate.png",
     effects=
     {
-      {
+          {
         type= "unlock-recipe",
         recipe= "bauxite-concentrate"
       },
@@ -1595,6 +1604,10 @@ data:extend({
       	  {
         type= "unlock-recipe",
         recipe= "aluminium-plate"
+      },
+          {
+        type= "unlock-recipe",
+        recipe= "pressure-vessel"
       },
     },
    },
@@ -1866,18 +1879,6 @@ data:extend({
 	  {
         type= "unlock-recipe",
         recipe= "module-contact"
-      },
-	  	  {
-        type= "unlock-recipe",
-        recipe= "speed-module"
-      },
-	  {
-        type= "unlock-recipe",
-        recipe= "effectivity-module"
-      },
-	  {
-        type= "unlock-recipe",
-        recipe= "productivity-module"
       },
     },
     unit =
