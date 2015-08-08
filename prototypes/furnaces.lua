@@ -143,7 +143,7 @@ data:extend({
     minable= { hardness= 0.2, mining_time= 0.5, result= "blast-furnace" },
     crafting_categories= { "blast-furnace" },
     max_health= 150,
-    ingredient_count= 3,
+    ingredient_count= 4,
     energy_usage="300kW",
 	crafting_speed=1,
 	icon="__NARMod__/graphics/icons/blastfurnace.png",
