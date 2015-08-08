@@ -137,33 +137,6 @@ data:extend({
 	result = "stone-sorter"
 	},	
 	
-	-- AGGREGATE
-	
-	{
-		type = "item",
-		name = "aggregate",
-		icon = "__NARMod__/graphics/icons/aggregate.png",
-		flags = {"goes-to-main-inventory"},
-		subgroup = "raw-ores",
-		order = "d[aggregate]",
-		stack_size = 50
-	},
-	
-	{
-		type = "recipe",
-		name = "aggregate",
-		category = "stone-sorter",
-		enabled = "false",
-		energy_required= 1,
-		ingredients =
-		{
-			{type="item",name = "crushed-stone", amount = 1},
-		},
-		results = {
-			{type="item",name = "aggregate", amount = 1},
-		},
-	},
-	
 	-- QUARTZ
 	
 	{
@@ -189,7 +162,6 @@ data:extend({
 			{type="item",name = "crushed-stone", amount = 2},
 		},
 		results = {
-			{type="item",name = "aggregate", amount = 1},
 			{type="item",name = "quartz", amount = 1},
 		},
 	},
@@ -216,10 +188,9 @@ data:extend({
 		energy_required= 3,
 		ingredients =
 		{
-			{type="item",name = "crushed-stone", amount = 3},
+			{type="item",name = "crushed-stone", amount = 2},
 		},
 		results = {
-			{type="item",name = "aggregate", amount = 2},
 			{type="item",name = "limestone", amount = 1},
 		},
 	},
@@ -243,13 +214,12 @@ data:extend({
 		category = "stone-sorter",
 		subgroup = "stone-sorter",
 		enabled = "false",
-		energy_required= 4,
+		energy_required = 4,
 		ingredients =
 		{
-			{type="item",name = "crushed-stone", amount = 4},
+			{type="item",name = "crushed-stone", amount = 3},
 		},
 		results = {
-			{type="item",name = "aggregate", amount = 3},
 			{type="item",name = "clay", amount = 1},
 		},
 	},
@@ -279,7 +249,6 @@ data:extend({
 			{type="item",name = "crushed-stone", amount = 5},
 		},
 		results = {
-			{type="item",name = "aggregate", amount = 4},
 			{type="item",name = "salt", amount = 1},
 		},
 	},
@@ -306,43 +275,9 @@ data:extend({
 		energy_required= 5,
 		ingredients =
 		{
-			{type="item",name = "crushed-stone", amount = 5},
+			{type="item",name = "crushed-stone", amount = 3},
 		},
 		results = {
-			{type="item",name = "aggregate", amount = 4},
-			{type="item",name = "phosphate-rock", amount = 1},
-		},
-	},
-	
-	-- PHOSPHATE ROCK
-	
-	{
-		type = "item",
-		name = "phosphate-rock",
-		icon = "__NARMod__/graphics/icons/phosphate-rock.png",
-		flags = {"goes-to-main-inventory"},
-		subgroup = "stone-sorter",
-		order = "a[salt]",
-		stack_size = 50
-	},
-	
-	{
-		type = "recipe",
-		name = "fully-sorted-crushed-stone",
-		subgroup = "stone-sorter",
-		icon = "__NARMod__/graphics/icons/crushed-stone.png",
-		category = "stone-sorter",
-		enabled = "false",
-		energy_required= 10,
-		ingredients =
-		{
-			{type="item",name = "crushed-stone", amount = 10},
-		},
-		results = {
-			{type="item",name = "quartz", amount = 4},
-			{type="item",name = "clay", amount = 2},
-			{type="item",name = "limestone", amount = 2},
-			{type="item",name = "salt", amount = 1},
 			{type="item",name = "phosphate-rock", amount = 1},
 		},
 	},
@@ -367,7 +302,7 @@ data:extend({
 	energy_required= 2,
     ingredients =
     {
-		{"limestone", 3},
+		{"limestone", 2},
 		{"clay", 1},
 		{"charcoal", 1},
 		{type="fluid", name="water", amount=1}
@@ -420,8 +355,8 @@ data:extend({
 	energy_required= 2,
     ingredients =
     {
-		{"aggregate", 5},
-		{"cement", 2},
+		{"crushed-stone", 3},
+		{"cement", 1},
 		{"iron-stick", 2},
 		{type="fluid", name="water", amount=1}
     },
