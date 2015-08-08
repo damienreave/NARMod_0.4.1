@@ -77,6 +77,10 @@ data:extend({
 			type = "unlock-recipe",
 			recipe = "copper-concentrate"
 		  },
+		  {
+			type = "unlock-recipe",
+			recipe = "crushed-stone"
+		  },
 		},
 		order = "a-a-a-a",
 	},
@@ -184,6 +188,10 @@ data:extend({
       },
 	  {
         type = "unlock-recipe",
+        recipe = "sulfur-dioxide-to-atmosphere"
+      },
+	  {
+        type = "unlock-recipe",
         recipe = "argon-gas-to-atmosphere"
       },
     },
@@ -204,10 +212,6 @@ data:extend({
 		{
 		  {
 			type = "unlock-recipe",
-			recipe = "crushed-tin-ore"
-		  },
-		  {
-			type = "unlock-recipe",
 			recipe = "tin-concentrate"
 		  },
 		  {
@@ -220,7 +224,7 @@ data:extend({
 		  },
 		  {
 			type = "unlock-recipe",
-			recipe = "separated-copper-and-lead-concentrate"
+			recipe = "lead-concentrate"
 		  },
 		  {
 			type = "unlock-recipe",
@@ -376,10 +380,6 @@ data:extend({
 		  },
 		  {
 			type = "unlock-recipe",
-			recipe = "forge-iron"
-		  },
-		  {
-			type = "unlock-recipe",
 			recipe = "forge-steel"
 		  },
 		  {
@@ -413,10 +413,6 @@ data:extend({
 			{
 				type = "unlock-recipe",
 				recipe = "stone-sorter"
-			},
-			{
-				type = "unlock-recipe",
-				recipe = "aggregate"
 			},
 			{
 				type = "unlock-recipe",
@@ -658,6 +654,14 @@ data:extend({
 	  {
         type = "unlock-recipe",
         recipe = "sulfur-dioxide"
+      },
+	  {
+        type = "unlock-recipe",
+        recipe = "sulfuric-acid"
+      },
+	  {
+        type = "unlock-recipe",
+        recipe = "claus-process"
       },
     },
   },
@@ -1086,11 +1090,7 @@ data:extend({
     {
       {
         type = "unlock-recipe",
-        recipe = "brine-water"
-      },
-	  {
-        type = "unlock-recipe",
-        recipe = "salt"
+        recipe = "pumpjack"
       },
 	  {
         type = "unlock-recipe",
@@ -1409,7 +1409,7 @@ data:extend({
     icon = "__NARMod__/graphics/icons/technology/zinc-and-brass-processing.png",
     prerequisites =
     {
-	  "sulfur-processing",
+	  "tin-and-lead-processing",
     },
 	unit =
     {
@@ -1426,7 +1426,11 @@ data:extend({
     {
       {
         type = "unlock-recipe",
-        recipe = "separated-copper-and-zinc-concentrate"
+        recipe = "zinc-concentrate"
+      },
+      {
+        type = "unlock-recipe",
+        recipe = "zinc-oxide"
       },
 	  {
         type = "unlock-recipe",
@@ -1435,6 +1439,14 @@ data:extend({
 	  {
         type = "unlock-recipe",
         recipe = "zinc-electrolysis"
+      },
+	  {
+        type = "unlock-recipe",
+        recipe = "pure-zinc-melt"
+      },
+	  {
+        type = "unlock-recipe",
+        recipe = "pure-zinc-isp"
       },
 	  {
         type = "unlock-recipe",
@@ -1553,7 +1565,7 @@ data:extend({
       },
 	  	  {
         type= "unlock-recipe",
-        recipe= "separated-iron-and-gold-concentrate"
+        recipe= "gold-concentrate"
       },
 	  {
         type= "unlock-recipe",
@@ -1584,6 +1596,10 @@ data:extend({
 	icon="__NARMod__/graphics/icons/plate/aluminium-plate.png",
     effects=
     {
+          {
+        type= "unlock-recipe",
+        recipe= "bauxite-concentrate"
+      },
 	  {
         type= "unlock-recipe",
         recipe= "aluminate"
@@ -1603,6 +1619,10 @@ data:extend({
       	  {
         type= "unlock-recipe",
         recipe= "aluminium-plate"
+      },
+          {
+        type= "unlock-recipe",
+        recipe= "pressure-vessel"
       },
     },
    },
@@ -1875,18 +1895,6 @@ data:extend({
         type= "unlock-recipe",
         recipe= "module-contact"
       },
-	  	  {
-        type= "unlock-recipe",
-        recipe= "speed-module"
-      },
-	  {
-        type= "unlock-recipe",
-        recipe= "effectivity-module"
-      },
-	  {
-        type= "unlock-recipe",
-        recipe= "productivity-module"
-      },
     },
     unit =
     {
@@ -1899,48 +1907,6 @@ data:extend({
       time = 30
     },
 	order = "b-c-p",
-  },
-   
-   {
-    type = "technology",
-    name = "armor-making-2",
-    icon = "__base__/graphics/technology/armor-making.png",
-    effects =
-    {
-      {
-        type = "unlock-recipe",
-        recipe = "heavy-armor"
-      },
-	  {
-        type = "unlock-recipe",
-        recipe = "nitrochlorobenzene"
-      },
-	  {
-        type = "unlock-recipe",
-        recipe = "phenylenediamine"
-      },
-	  {
-        type = "unlock-recipe",
-        recipe = "terephthaloyl-chloride"
-      },
-	  {
-        type = "unlock-recipe",
-        recipe = "kevlar"
-      },
-	  
-    },
-    prerequisites = {"armor-making", "chemical-processing-3", "ceramics"},
-    unit =
-    {
-      count = 50,
-      ingredients =
-      {
-        {"science-pack-1", 1},
-        {"science-pack-2", 1},
-      },
-      time = 30
-    },
-	order = "b-c-q",
   },
    
    -- BLUE PACK TIER 1
@@ -2024,7 +1990,7 @@ data:extend({
     {
 		{
 			type= "unlock-recipe",
-			recipe= "separated-iron-and-titanium-concentrate"
+			recipe= "titanium-concentrate"
 		},
 		{
 			type= "unlock-recipe",
@@ -2118,7 +2084,7 @@ data:extend({
     {
 	  {
         type= "unlock-recipe",
-        recipe= "separated-copper-and-cobalt-concentrate"
+        recipe= "cobalt-concentrate"
       },
 	  {
         type= "unlock-recipe",
