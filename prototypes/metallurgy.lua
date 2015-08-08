@@ -468,23 +468,22 @@ data:extend(
   
   --------------- ZINC PROCESSING ---------------
 	
-	-- SEPARATED COPPER AND ZINC CONCENTRATE
+	-- 1) ZINC CONCENTRATE (FROTH FLOATATION)
 	{
 		type = "recipe",
-		name = "separated-copper-and-zinc-concentrate",
+		name = "zinc-concentrate",
 		category = "froth-flotation",
 		energy_required = 20,
-		icon = "__NARMod__/graphics/icons/plate/separated-copper-and-zinc-concentrate.png",
+		icon = "__NARMod__/graphics/icons/zinc-ore.png",
 		subgroup = "raw-ores",
 		ingredients= {
-			{type="item",name="crushed-copper-ore", amount=10},
+			{type="item",name="subsidiary-ore", amount=10},
 			{type="fluid",name="water", amount=10},
 			{type="fluid",name="compressed-air", amount=5}
 		},
 		results= {
-			{type="item", name="copper-concentrate", amount=5},
-			{type="item", name="zinc-concentrate", amount=1},
-			{type="item", name="crushed-stone", amount=4},
+			{type="item", name="zinc-concentrate", amount=5},
+			{type="item", name="crushed-stone", amount=5},
 		},
 		enabled = "false"
 	},
@@ -498,10 +497,42 @@ data:extend(
 		order = "f-a[zinc-ore]",
 		stack_size = 50
 	},
+
+
+        -- 2) ZINC OXIDE (ROASTING)
+
+	{
+		type = "recipe",
+		name = "zinc-oxide",
+		category = "chemical-furnace",
+		energy_required = 30,
+		icon = "__NARMod__/graphics/icons/plate/zinc-concentrate.png",
+		subgroup = "raw-ores",
+		ingredients= {
+			{type="item",name="zinc-concentrate", amount=10},
+			{type="fluid",name="oxygen-gas", amount=10}
+		},
+		results= {
+			{type="item", name="zinc-oxide", amount=10},
+			{type="fluid", name="sulfur-dioxide", amount=10},
+		},
+		enabled = "false"
+	},
+
+	{
+		type = "item",
+		name = "zinc-oxide",
+		icon = "__NARMod__/graphics/icons/plate/zinc-concentrate.png",
+		flags = {"goes-to-main-inventory"},
+		subgroup = "raw-ores",
+		order = "f-a[zinc-oxide]",
+		stack_size = 50
+	},
+
 	
-	-- ZINC SULPHATE
-  
-  {
+	-- 3) ZINC SULPHATE (LEACHING)
+
+  	{
 		type = "fluid",
 		name = "zinc-sulphate",
 		default_temperature = 300,
@@ -518,10 +549,15 @@ data:extend(
 	{
 	    type = "recipe",
 		name = "zinc-sulphate",
-		results= {{type="fluid", name="zinc-sulphate", amount=10}},
+		icon = "__NARMod__/graphics/icons/plate/zinc-sulphate.png",
+		results= 
+		{
+			{type="fluid", name="zinc-sulphate", amount=10},
+			{type="item", name="lead-concentrate", amount=4},
+		},
 		ingredients =
 		{
-			{type="item", name="zinc-concentrate", amount=10},
+			{type="item", name="zinc-oxide", amount=10},
 			{type="fluid", name="sulfuric-acid", amount=10},
 		},
 		energy_required= 30,
@@ -530,9 +566,37 @@ data:extend(
 		subgroup="molten-metals"
 	},
 	
-	-- ZINC ELECTROLYSIS
+	-- 4) ZINC CATHODES (ELECTROWINNING)
+
+	{
+		type = "recipe",
+		name = "zinc-electrolysis",
+		icon = "__NARMod__/graphics/icons/electronics/solder.png",
+		ingredients= {{type="fluid", name="zinc-sulphate", amount=10}},
+		enabled = "false",
+		category = "electrolysis",
+		energy_required= 35,
+		results= 
+		{
+			{type="item", name="zinc-cathode", amount=10},
+			{type="fluid", name="sulfuric-acid", amount=5}
+		},
+		subgroup = "raw-plates",
+	},
+
+	{
+		type = "item",
+		name = "zinc-cathode",
+		icon = "__NARMod__/graphics/icons/electronics/solder.png",
+		flags = {"goes-to-main-inventory"},
+		subgroup = "molten-metals",
+		order = "e",
+		stack_size = 50
+	},
+
+	-- 5) PURE ZINC (CATHODE MELTING) 
   
-    {
+	{
 		type = "fluid",
 		name = "pure-zinc",
 		default_temperature = 1600,
@@ -546,74 +610,68 @@ data:extend(
 		order = "m-t"
 	},
   
-  {
-    type = "recipe",
-    name = "zinc-electrolysis",
-	ingredients= {{type="fluid", name="zinc-sulphate", amount=10}},
-    enabled = "false",
-    category = "electrolysis",
-	energy_required= 35,
-	results= {{type="fluid", name="pure-zinc", amount=10}},
-	subgroup = "raw-plates",
-  },
-  
-  -- FORGE ZINC PLATES
-  
-  {
-    type = "recipe",
-    name = "forge-zinc",
-	ingredients= {{type="fluid", name="pure-zinc", amount=10}},
-    enabled = "false",
-    category = "forge",
-    result_count = 10,
-	energy_required= 35,
-	results= {{type="item", name="zinc-plate", amount=10}},
-	subgroup = "raw-plates",
-  },
-  
-  {
-    type = "item",
-    name = "zinc-plate",
-    icon = "__NARMod__/graphics/icons/plate/zinc-plate-2.png",
-    flags = {"goes-to-main-inventory"},
-    subgroup = "raw-plates",
-    order = "c-a-a[zinc-plate]",
-    stack_size = 50
-  },
-	
-	--------------- TIN PROCESSING ---------------
-	
-	 -- CRUSHED TIN ORE
+
 	{
 		type = "recipe",
-		name = "crushed-tin-ore",
-		category = "crushing",
-		energy_required = 2,
-		ingredients = {{"tin-ore",1}},
-		result = "crushed-tin-ore",
-		result_count = 1,
-		enabled = "false"
+		name = "pure-zinc-melt",
+		energy_required = 5,
+		category = "electric-furnace",
+		subgroup = "molten-metals",
+		enabled = false,
+		ingredients =
+		{{"zinc-cathode", 10}},
+		results= {{type="fluid", name="pure-zinc", amount=10}}
 	},
-	
-	    {
-    type = "item",
-    name = "tin-ore",
-    icon = "__NARMod__/graphics/icons/tin-ore.png",
-    flags = {"goes-to-main-inventory"},
-    subgroup = "raw-ores",
-    order = "f-a[tin-ore]",
-    stack_size = 50
-  },
+  
+	-- 6) ZINC PLATES (FORGING)
+
+	{
+		type = "recipe",
+		name = "forge-zinc",
+		ingredients= {{type="fluid", name="pure-zinc", amount=10}},
+		enabled = "false",
+		category = "forge",
+		result_count = 10,
+		energy_required= 35,
+		results= {{type="item", name="zinc-plate", amount=10}},
+		subgroup = "raw-plates",
+	},
 	
 	{
 		type = "item",
-		name = "crushed-tin-ore",
-		icon = "__NARMod__/graphics/icons/plate/crushed-tin-ore.png",
+		name = "zinc-plate",
+		icon = "__NARMod__/graphics/icons/plate/zinc-plate-2.png",
 		flags = {"goes-to-main-inventory"},
-		subgroup = "raw-ores",
-		order = "a[crushed-tin-ore]",
+		subgroup = "raw-plates",
+		order = "c-a-a[zinc-plate]",
 		stack_size = 50
 	},
+
+	-- 7) PURE ZINC (IMPERIAL SMELTING PROCESS)
+
+	{
+	    type = "recipe",
+		name = "pure-zinc-isp",
+		ingredients =
+		{
+			{type="item", name="zinc-oxide", amount=20},
+			{type="item", name="lead-concentrate", amount=10},
+			{type="item", name="coke", amount=8},
+			{type="item", name="limestone", amount=2},
+		},
+		results= 
+		{
+			{type="fluid", name="pure-zinc", amount=15},
+			{type="fluid", name="molten-lead", amount=5}
+		},
+		energy_required= 70,
+		enabled= "false",
+		category= "blast-furnace",
+		subgroup="molten-metals"
+	},
+	
+	
+	--------------- TIN PROCESSING ---------------
 	
 	-- TIN CONCENTRATE
 	{
