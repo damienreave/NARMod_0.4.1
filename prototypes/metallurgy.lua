@@ -652,13 +652,17 @@ data:extend(
 	{
 	    type = "recipe",
 		name = "pure-zinc-isp",
-		results= {{type="fluid", name="pure-zinc", amount=15}},
 		ingredients =
 		{
 			{type="item", name="zinc-oxide", amount=20},
 			{type="item", name="lead-concentrate", amount=10},
 			{type="item", name="coke", amount=8},
 			{type="item", name="limestone", amount=2},
+		},
+		results= 
+		{
+			{type="fluid", name="pure-zinc", amount=15},
+			{type="fluid", name="molten-lead", amount=5}
 		},
 		energy_required= 70,
 		enabled= "false",
