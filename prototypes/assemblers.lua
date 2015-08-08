@@ -107,9 +107,8 @@ data:extend(
         production_type = "output",
         pipe_picture = assembler3pipepictures(),
         pipe_covers = pipecoverspictures(),
-        base_area = 10,
-        base_level = -1,
-        pipe_connections = {{ type="output", position = {0, 2} }}
+        base_level = 1,
+        pipe_connections = {{ position = {0, 2} }}
       },
       off_when_no_fluid_recipe = true
     },
