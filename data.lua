@@ -2,11 +2,11 @@ require("config")
 
 require("prototypes.assemblers")
 require("prototypes.asu")
+require("prototypes.brine")
 require("prototypes.categories")
 require("prototypes.ceramics")
 require("prototypes.chemicals")
 require("prototypes.concrete")
-require("prototypes.deposits")
 require("prototypes.electronics")
 require("prototypes.furnaces")
 require("prototypes.metallurgy")
@@ -31,3 +31,12 @@ if narmod.ChallengeMode == true then
   else
 	require("prototypes.normalmode")
 end
+
+-- Default = 0.000008
+data.raw["map-settings"]["map-settings"]["enemy_evolution"].time_factor = 0.000001
+
+-- Default = 0.00003          
+data.raw["map-settings"]["map-settings"]["enemy_evolution"].pollution_factor = 0.00002
+
+-- Default = 0.005
+data.raw["map-settings"]["map-settings"]["enemy_evolution"].destroy_factor = 0.010
