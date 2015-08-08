@@ -110,13 +110,16 @@ data:extend({
     stage_counts = {0},
     stages =
     {
-      filename = "__NARMod__/graphics/entity/brine-pool/brine-pool.png",
-      priority = "extra-high",
-      width = 75,
-      height = 61,
-      frame_count = 4,
-      direction_count = 1
-    },
+		sheet = 
+		{
+			filename = "__NARMod__/graphics/entity/brine-pool/brine-pool.png",
+			priority = "extra-high",
+			width = 75,
+			height = 61,
+			frame_count = 4,
+			direction_count = 1
+		},
+	}
     map_color = {r=0.8, g=0.1, b=0.8},
     map_grid = false
   }
