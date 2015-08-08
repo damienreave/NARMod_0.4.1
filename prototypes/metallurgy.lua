@@ -685,16 +685,8 @@ data:extend(
     enabled = false,
     category = "forge",
     energy_required = 35,
-    ingredients =
-    {
-      {type="fluid", name="molten-tin", amount=10},
-	  {type="item", name="coke", amount=3},
-	  {type="item", name="limestone", amount=1},
-    },
-    results = 
-    {
-      {type="item", name="tin-plate", amount=10}
-    }
+    ingredients = {{type="fluid", name="molten-tin", amount=10}},
+    results = {{type="item", name="tin-plate", amount=10}}
   },
   
   {
