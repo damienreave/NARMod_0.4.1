@@ -438,6 +438,10 @@ data:extend({
 				type = "unlock-recipe",
 				recipe = "phosphate-rock"
 			},
+			{
+				type = "unlock-recipe",
+				recipe = "crushed-stone"
+			},
 		},
 		order = "a-b-c"
 	},
@@ -658,6 +662,10 @@ data:extend({
 	  {
         type = "unlock-recipe",
         recipe = "sulfur-dioxide"
+      },
+	  {
+        type = "unlock-recipe",
+        recipe = "sulfuric-acid"
       },
     },
   },
@@ -1409,7 +1417,7 @@ data:extend({
     icon = "__NARMod__/graphics/icons/technology/zinc-and-brass-processing.png",
     prerequisites =
     {
-	  "sulfur-processing",
+	  "tin-and-lead-processing",
     },
 	unit =
     {
@@ -1603,6 +1611,10 @@ data:extend({
       	  {
         type= "unlock-recipe",
         recipe= "aluminium-plate"
+      },
+      	  {
+        type= "unlock-recipe",
+        recipe= "pressure-vessel"
       },
     },
    },
