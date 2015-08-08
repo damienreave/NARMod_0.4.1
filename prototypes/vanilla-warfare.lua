@@ -101,6 +101,7 @@ data:extend( {
     order = "a[basic-clips]-a[pistol]",
     attack_parameters =
     {
+		type = "projectile",
       ammo_category = "pistol-bullet",
       cooldown = 10,
       movement_slow_down_factor = 0.7,
@@ -127,6 +128,8 @@ data:extend( {
     },
     stack_size = 5
   },
+  
+  
   
   -- RIFLE
   
@@ -265,6 +268,7 @@ data:extend( {
     order = "a[basic-clips]-b[heavy-machine-gun]",
     attack_parameters =
     {
+		type = "projectile",
       ammo_category = "bullet",
       cooldown = 3,
       movement_slow_down_factor = 0.9,

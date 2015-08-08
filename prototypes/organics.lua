@@ -565,6 +565,7 @@ data:extend(
 			type = "use-on-self",
 			attack_parameters =
 			{
+				type = "projectile",
 				ammo_category = "capsule",
 				cooldown = 30,
 				range = 0,
