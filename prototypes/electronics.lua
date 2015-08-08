@@ -239,7 +239,7 @@ data:extend( {
 	  {"lead-plate", 4},
     },
     result = "solder",
-    result_count = 5
+    result_count = 10
   },
   
     
