@@ -25,7 +25,7 @@ data:extend( {
 	  {"polycrystalline-silicon-plate",1},
 	  {"silicon-nitride",1},
 	  {"aluminium-plate",1},
-	  {"copper-cable",5},
+	  {"copper-cable",4},
     },
     result = "photovoltaic-cell",
     result_count = 5
@@ -239,7 +239,7 @@ data:extend( {
 	  {"lead-plate", 4},
     },
     result = "solder",
-    result_count = 5
+    result_count = 10
   },
   
     
@@ -489,7 +489,7 @@ data:extend( {
     ingredients =
     {
       {"wooden-substrate", 1},
-      {"copper-cable", 1},
+      {"copper-cable", 3},
     },
     result = "electronic-circuit",
   },

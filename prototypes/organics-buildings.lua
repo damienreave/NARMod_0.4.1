@@ -385,7 +385,7 @@ data:extend(
 			usage_priority = "secondary-input"
 		},
 		crafting_categories = {"bioreactor-crafting"},
-		ingredient_count = 3,
+		ingredient_count = 8,
 		crafting_speed = 1,
 		energy_usage = "10kW"
 	},
