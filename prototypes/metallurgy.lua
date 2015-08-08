@@ -2,20 +2,17 @@ data:extend(
 {
 	
 	--------------- IRON PROCESSING ---------------
-  
-  -- BASIC IRON PLATE
-  
-    {
-		type = "recipe",
-		name = "iron-plate",
-		category = "smelting",
-		energy_required = 5,
-		ingredients = {{"iron-ore", 1}},
-		result = "iron-plate",
-		enabled = "true",
-  },
-  
-  -- CRUSHED IRON ORE
+	
+	{
+		type = "item",
+		name = "crushed-iron-ore",
+		icon = "__NARMod__/graphics/icons/plate/crushed-iron-ore.png",
+		flags = {"goes-to-main-inventory"},
+		subgroup = "raw-ores",
+		order = "a[crushed-iron-ore]",
+		stack_size = 50
+	},
+	
 	{
 		type = "recipe",
 		name = "crushed-iron-ore",
@@ -32,23 +29,13 @@ data:extend(
 	
 	{
 		type = "item",
-		name = "crushed-iron-ore",
-		icon = "__NARMod__/graphics/icons/plate/crushed-iron-ore.png",
+		name = "subsidiary-ore",
+		icon = "__NARMod__/graphics/icons/plate/subsidiary-ore.png",
 		flags = {"goes-to-main-inventory"},
 		subgroup = "raw-ores",
-		order = "a[crushed-iron-ore]",
+		order = "a[subsidiary-ore]",
 		stack_size = 50
 	},
-	
-	{
-		type = "recipe",
-		name = "iron-plate-2",
-		category = "smelting",
-		energy_required = 3,
-		ingredients = {{"crushed-iron-ore", 1}},
-		result = "iron-plate",
-		enabled = "true",
-  },
 	
 	-- IRON CONCENTRATE
 	{
@@ -65,7 +52,8 @@ data:extend(
 		},
 		results= {
 			{type="item", name="iron-concentrate", amount=10},
-			{type="item", name="crushed-stone", amount=5},
+			{type="item", name="subsidiary-ore", amount=2},
+			{type="item", name="crushed-stone", amount=8},
 		},
 		enabled = "false"
 	},
@@ -112,24 +100,6 @@ data:extend(
 		subgroup="molten-metals"
 	},
 	
-	-- IRON PLATE
-	
-	{
-		type = "recipe",
-		name = "forge-iron",
-		ingredients= {
-			{type="fluid", name="molten-iron", amount=10},
-		},
-		enabled= "false",
-		energy_required= 35,
-		category = "forge",
-		result_count = 10,
-		result= "iron-plate",
-		subgroup= "raw-plates"
-	},
-	
-	--------------- STEEL PROCESSING ---------------
-	
 		-- STEEL PLATE
 	
 	{
@@ -163,13 +133,15 @@ data:extend(
 	},
 	
 	{
-    type = "recipe",
-    name = "lq-copper-plate",
-    category = "smelting",
-    energy_required = 3.5,
-    ingredients = {{ "crushed-copper-ore", 1}},
-    result = "lq-copper-plate"
+		type = "recipe",
+		name = "lq-copper-plate",
+		category = "smelting",
+		enabled = true,
+		energy_required = 3.5,
+		ingredients = {{ "copper-ore", 1}},
+		result = "lq-copper-plate"
 	},
+
 	
 	-- COPPER WIRE
 	
@@ -203,8 +175,7 @@ data:extend(
 			{type="item",name="copper-ore", amount=10},
 		},
 		results= {
-			{type="item", name="crushed-iron-ore", amount=7},
-			{type="item", name="crushed-copper-ore", amount=3},
+			{type="item", name="crushed-copper-ore", amount=10},
 		},
 	},
 	
@@ -233,7 +204,8 @@ data:extend(
 		},
 		results= {
 			{type="item", name="copper-concentrate", amount=10},
-			{type="item", name="crushed-stone", amount=10},
+			{type="item", name="subsidiary-ore", amount=5},
+			{type="item", name="crushed-stone", amount=5},
 		},
 		enabled = "false"
 	},
@@ -350,52 +322,31 @@ data:extend(
 		},
 		results= {
 			{type="item", name="copper-concentrate", amount=10},
-			{type="item", name="crushed-stone", amount=8},
-			{type="item", name="sulfur", amount=2},
-		},
-		enabled = "false"
-	},
-	
-	-- COPPER CONCENTRATE WITH SULFUR DIOXIDE
-	{
-		type = "recipe",
-		name = "copper-concentrate-with-sulfur-dioxide",
-		category = "froth-flotation",
-		energy_required = 20,
-		icon = "__NARMod__/graphics/icons/plate/copper-concentrate-with-sulfur-dioxide.png",
-		subgroup = "raw-ores",
-		ingredients= {
-			{type="item",name="crushed-copper-ore", amount=10},
-			{type="fluid",name="water", amount=10},
-			{type="fluid",name="compressed-air", amount=5}
-		},
-		results= {
-			{type="item", name="copper-concentrate", amount=10},
+			{type="item", name="subsidiary-ore", amount=4},
 			{type="item", name="crushed-stone", amount=4},
-			{type="fluid", name="sulfur-dioxide", amount=2},
+			{type="item", name="sulfur", amount=2},
 		},
 		enabled = "false"
 	},
 
 	--------------- LEAD PROCESSING ---------------
 	
-	-- SEPARATED COPPER AND LEAD CONCENTRATE
+	-- LEAD CONCENTRATE
 	{
 		type = "recipe",
-		name = "separated-copper-and-lead-concentrate",
+		name = "lead-concentrate",
 		category = "froth-flotation",
 		energy_required = 20,
-		icon = "__NARMod__/graphics/icons/plate/separated-copper-and-lead-concentrate.png",
+		icon = "__NARMod__/graphics/icons/plate/lead-concentrate.png",
 		subgroup = "raw-ores",
 		ingredients= {
-			{type="item",name="crushed-copper-ore", amount=10},
+			{type="item",name="subsidiary-ore", amount=10},
 			{type="fluid",name="water", amount=10},
 			{type="fluid",name="compressed-air", amount=5}
 		},
 		results= {
-			{type="item", name="copper-concentrate", amount=5},
-			{type="item", name="lead-concentrate", amount=1},
-			{type="item", name="crushed-stone", amount=4},
+			{type="item", name="lead-concentrate", amount=5},
+			{type="item", name="crushed-stone", amount=5},
 		},
 		enabled = "false"
 	},
@@ -465,26 +416,25 @@ data:extend(
     order = "c-a-f[lead-plate]",
     stack_size = 50
   },
-  
+
   --------------- ZINC PROCESSING ---------------
 	
-	-- SEPARATED COPPER AND ZINC CONCENTRATE
+	-- 1) ZINC CONCENTRATE (FROTH FLOATATION)
 	{
 		type = "recipe",
-		name = "separated-copper-and-zinc-concentrate",
+		name = "zinc-concentrate",
 		category = "froth-flotation",
 		energy_required = 20,
-		icon = "__NARMod__/graphics/icons/plate/separated-copper-and-zinc-concentrate.png",
+		icon = "__NARMod__/graphics/icons/zinc-ore.png",
 		subgroup = "raw-ores",
 		ingredients= {
-			{type="item",name="crushed-copper-ore", amount=10},
+			{type="item",name="subsidiary-ore", amount=10},
 			{type="fluid",name="water", amount=10},
 			{type="fluid",name="compressed-air", amount=5}
 		},
 		results= {
-			{type="item", name="copper-concentrate", amount=5},
-			{type="item", name="zinc-concentrate", amount=1},
-			{type="item", name="crushed-stone", amount=4},
+			{type="item", name="zinc-concentrate", amount=5},
+			{type="item", name="crushed-stone", amount=5},
 		},
 		enabled = "false"
 	},
@@ -498,10 +448,42 @@ data:extend(
 		order = "f-a[zinc-ore]",
 		stack_size = 50
 	},
+
+
+        -- 2) ZINC OXIDE (ROASTING)
+
+	{
+		type = "recipe",
+		name = "zinc-oxide",
+		category = "chemical-furnace",
+		energy_required = 30,
+		icon = "__NARMod__/graphics/icons/plate/zinc-concentrate.png",
+		subgroup = "raw-ores",
+		ingredients= {
+			{type="item",name="zinc-concentrate", amount=10},
+			{type="fluid",name="oxygen-gas", amount=10}
+		},
+		results= {
+			{type="item", name="zinc-oxide", amount=10},
+			{type="fluid", name="sulfur-dioxide", amount=10},
+		},
+		enabled = "false"
+	},
+
+	{
+		type = "item",
+		name = "zinc-oxide",
+		icon = "__NARMod__/graphics/icons/plate/zinc-concentrate.png",
+		flags = {"goes-to-main-inventory"},
+		subgroup = "raw-ores",
+		order = "f-a[zinc-oxide]",
+		stack_size = 50
+	},
+
 	
-	-- ZINC SULPHATE
-  
-  {
+	-- 3) ZINC SULPHATE (LEACHING)
+
+  	{
 		type = "fluid",
 		name = "zinc-sulphate",
 		default_temperature = 300,
@@ -518,10 +500,15 @@ data:extend(
 	{
 	    type = "recipe",
 		name = "zinc-sulphate",
-		results= {{type="fluid", name="zinc-sulphate", amount=10}},
+		icon = "__NARMod__/graphics/icons/plate/zinc-sulphate.png",
+		results= 
+		{
+			{type="fluid", name="zinc-sulphate", amount=10},
+			{type="item", name="lead-concentrate", amount=4},
+		},
 		ingredients =
 		{
-			{type="item", name="zinc-concentrate", amount=10},
+			{type="item", name="zinc-oxide", amount=10},
 			{type="fluid", name="sulfuric-acid", amount=10},
 		},
 		energy_required= 30,
@@ -530,9 +517,37 @@ data:extend(
 		subgroup="molten-metals"
 	},
 	
-	-- ZINC ELECTROLYSIS
+	-- 4) ZINC CATHODES (ELECTROWINNING)
+
+	{
+		type = "recipe",
+		name = "zinc-electrolysis",
+		icon = "__NARMod__/graphics/icons/electronics/solder.png",
+		ingredients= {{type="fluid", name="zinc-sulphate", amount=10}},
+		enabled = "false",
+		category = "electrolysis",
+		energy_required= 35,
+		results= 
+		{
+			{type="item", name="zinc-cathode", amount=10},
+			{type="fluid", name="sulfuric-acid", amount=5}
+		},
+		subgroup = "raw-plates",
+	},
+
+	{
+		type = "item",
+		name = "zinc-cathode",
+		icon = "__NARMod__/graphics/icons/electronics/solder.png",
+		flags = {"goes-to-main-inventory"},
+		subgroup = "molten-metals",
+		order = "e",
+		stack_size = 50
+	},
+
+	-- 5) PURE ZINC (CATHODE MELTING) 
   
-    {
+	{
 		type = "fluid",
 		name = "pure-zinc",
 		default_temperature = 1600,
@@ -546,74 +561,68 @@ data:extend(
 		order = "m-t"
 	},
   
-  {
-    type = "recipe",
-    name = "zinc-electrolysis",
-	ingredients= {{type="fluid", name="zinc-sulphate", amount=10}},
-    enabled = "false",
-    category = "electrolysis",
-	energy_required= 35,
-	results= {{type="fluid", name="pure-zinc", amount=10}},
-	subgroup = "raw-plates",
-  },
-  
-  -- FORGE ZINC PLATES
-  
-  {
-    type = "recipe",
-    name = "forge-zinc",
-	ingredients= {{type="fluid", name="pure-zinc", amount=10}},
-    enabled = "false",
-    category = "forge",
-    result_count = 10,
-	energy_required= 35,
-	results= {{type="item", name="zinc-plate", amount=10}},
-	subgroup = "raw-plates",
-  },
-  
-  {
-    type = "item",
-    name = "zinc-plate",
-    icon = "__NARMod__/graphics/icons/plate/zinc-plate-2.png",
-    flags = {"goes-to-main-inventory"},
-    subgroup = "raw-plates",
-    order = "c-a-a[zinc-plate]",
-    stack_size = 50
-  },
-	
-	--------------- TIN PROCESSING ---------------
-	
-	 -- CRUSHED TIN ORE
+
 	{
 		type = "recipe",
-		name = "crushed-tin-ore",
-		category = "crushing",
-		energy_required = 2,
-		ingredients = {{"tin-ore",1}},
-		result = "crushed-tin-ore",
-		result_count = 1,
-		enabled = "false"
+		name = "pure-zinc-melt",
+		energy_required = 5,
+		category = "electric-furnace",
+		subgroup = "molten-metals",
+		enabled = false,
+		ingredients =
+		{{"zinc-cathode", 10}},
+		results= {{type="fluid", name="pure-zinc", amount=10}}
 	},
-	
-	    {
-    type = "item",
-    name = "tin-ore",
-    icon = "__NARMod__/graphics/icons/tin-ore.png",
-    flags = {"goes-to-main-inventory"},
-    subgroup = "raw-ores",
-    order = "f-a[tin-ore]",
-    stack_size = 50
-  },
+  
+	-- 6) ZINC PLATES (FORGING)
+
+	{
+		type = "recipe",
+		name = "forge-zinc",
+		ingredients= {{type="fluid", name="pure-zinc", amount=10}},
+		enabled = "false",
+		category = "forge",
+		result_count = 10,
+		energy_required= 35,
+		results= {{type="item", name="zinc-plate", amount=10}},
+		subgroup = "raw-plates",
+	},
 	
 	{
 		type = "item",
-		name = "crushed-tin-ore",
-		icon = "__NARMod__/graphics/icons/plate/crushed-tin-ore.png",
+		name = "zinc-plate",
+		icon = "__NARMod__/graphics/icons/plate/zinc-plate-2.png",
 		flags = {"goes-to-main-inventory"},
-		subgroup = "raw-ores",
-		order = "a[crushed-tin-ore]",
+		subgroup = "raw-plates",
+		order = "c-a-a[zinc-plate]",
 		stack_size = 50
 	},
+
+	-- 7) PURE ZINC (IMPERIAL SMELTING PROCESS)
+
+	{
+	    type = "recipe",
+		name = "pure-zinc-isp",
+		ingredients =
+		{
+			{type="item", name="zinc-oxide", amount=20},
+			{type="item", name="lead-concentrate", amount=10},
+			{type="item", name="coke", amount=8},
+			{type="item", name="limestone", amount=2},
+		},
+		results= 
+		{
+			{type="fluid", name="pure-zinc", amount=15},
+			{type="fluid", name="molten-lead", amount=5}
+		},
+		energy_required= 70,
+		enabled= "false",
+		category= "blast-furnace",
+		subgroup="molten-metals"
+	},
+	
+	
+	--------------- TIN PROCESSING ---------------
 	
 	-- TIN CONCENTRATE
 	{
@@ -624,13 +633,13 @@ data:extend(
 		icon = "__NARMod__/graphics/icons/plate/tin-concentrate.png",
 		subgroup = "raw-ores",
 		ingredients= {
-			{type="item",name="crushed-tin-ore", amount=10},
+			{type="item",name="subsidiary-ore", amount=10},
 			{type="fluid",name="water", amount=10},
 			{type="fluid",name="compressed-air", amount=5}
 		},
 		results= {
-			{type="item", name="tin-concentrate", amount=4},
-			{type="item", name="crushed-stone", amount=6},
+			{type="item", name="tin-concentrate", amount=5},
+			{type="item", name="crushed-stone", amount=5},
 		},
 		enabled = "false"
 	},
@@ -685,16 +694,8 @@ data:extend(
     enabled = false,
     category = "forge",
     energy_required = 35,
-    ingredients =
-    {
-      {type="fluid", name="molten-tin", amount=10},
-	  {type="item", name="coke", amount=3},
-	  {type="item", name="limestone", amount=1},
-    },
-    results = 
-    {
-      {type="item", name="tin-plate", amount=10}
-    }
+    ingredients = {{type="fluid", name="molten-tin", amount=10}},
+    results = {{type="item", name="tin-plate", amount=10}}
   },
   
   {
@@ -721,24 +722,23 @@ data:extend(
     stack_size = 50
   },
   
-	-- SEPARATED IRON AND GOLD CONCENTRATE
+	-- GOLD CONCENTRATE
 	
 	{
 		type = "recipe",
-		name = "separated-copper-and-gold-concentrate",
+		name = "gold-concentrate",
 		category = "froth-flotation",
 		energy_required = 20,
-		icon = "__NARMod__/graphics/icons/plate/separated-copper-and-gold-concentrate.png",
+		icon = "__NARMod__/graphics/icons/plate/gold-concentrate.png",
 		subgroup = "raw-ores",
 		ingredients= {
-			{type="item",name="crushed-copper-ore", amount=10},
+			{type="item",name="subsidiary-ore", amount=10},
 			{type="fluid",name="water", amount=10},
 			{type="fluid",name="compressed-air", amount=5}
 		},
 		results= {
-			{type="item", name="copper-concentrate", amount=7},
-			{type="item", name="gold-concentrate", amount=1},
-			{type="item", name="crushed-stone", amount=2},
+			{type="item", name="gold-concentrate", amount=5},
+			{type="item", name="crushed-stone", amount=5},
 		},
 		enabled = "false"
 	},
@@ -854,25 +854,24 @@ data:extend(
 	subgroup = "raw-plates",
   },
   
-  --------------- COBALT PROCESSING ---------------
+ --------------- COBALT PROCESSING ---------------
 	
-	-- SEPARATED COPPER AND COBALT CONCENTRATE
+	-- COBALT CONCENTRATE
 	{
 		type = "recipe",
-		name = "separated-copper-and-cobalt-concentrate",
+		name = "cobalt-concentrate",
 		category = "froth-flotation",
 		energy_required = 20,
-		icon = "__NARMod__/graphics/icons/plate/separated-copper-and-cobalt-concentrate.png",
+		icon = "__NARMod__/graphics/icons/plate/cobalt-concentrate.png",
 		subgroup = "raw-ores",
 		ingredients= {
-			{type="item",name="crushed-copper-ore", amount=10},
+			{type="item",name="subsidiary-ore", amount=10},
 			{type="fluid",name="water", amount=10},
 			{type="fluid",name="compressed-air", amount=5}
 		},
 		results= {
-			{type="item", name="copper-concentrate", amount=5},
-			{type="item", name="cobalt-concentrate", amount=1},
-			{type="item", name="crushed-stone", amount=4},
+			{type="item", name="cobalt-concentrate", amount=5},
+			{type="item", name="crushed-stone", amount=5},
 		},
 		enabled = "false"
 	},
@@ -920,23 +919,22 @@ data:extend(
   
   	--------------- TITANIUM PROCESSING ---------------
   
-  -- SEPARATED COPPER AND TITANIUM CONCENTRATE
+  -- TITANIUM CONCENTRATE
 	{
 		type = "recipe",
-		name = "separated-iron-and-titanium-concentrate",
+		name = "titanium-concentrate",
 		category = "froth-flotation",
 		energy_required = 20,
-		icon = "__NARMod__/graphics/icons/plate/separated-iron-and-titanium-concentrate.png",
+		icon = "__NARMod__/graphics/icons/plate/titanium-concentrate.png",
 		subgroup = "raw-ores",
 		ingredients= {
-			{type="item",name="crushed-iron-ore", amount=10},
+			{type="item",name="subsidiary-ore", amount=10},
 			{type="fluid",name="water", amount=10},
 			{type="fluid",name="compressed-air", amount=5}
 		},
 		results= {
-			{type="item", name="iron-concentrate", amount=6},
-			{type="item", name="titanium-concentrate", amount=2},
-			{type="item", name="crushed-stone", amount=2},
+			{type="item", name="titanium-concentrate", amount=5},
+			{type="item", name="crushed-stone", amount=5},
 		},
 		enabled = "false"
 	},
@@ -1059,18 +1057,38 @@ data:extend(
 	
 	--------------- ALUMINIUM PROCESSING ---------------
 	
--- 	ALUMINATE
+	 -- BAUXITE CONCENTRATE
+	{
+		type = "recipe",
+		name = "bauxite-concentrate",
+		category = "froth-flotation",
+		energy_required = 20,
+		icon = "__NARMod__/graphics/icons/plate/bauxite-concentrate.png",
+		subgroup = "raw-ores",
+		ingredients= {
+			{type="item",name="subsidiary-ore", amount=10},
+			{type="fluid",name="water", amount=10},
+			{type="fluid",name="compressed-air", amount=5}
+		},
+		results= {
+			{type="item", name="bauxite-concentrate", amount=5},
+			{type="item", name="crushed-stone", amount=5},
+		},
+		enabled = "false"
+	},
 
     {
     type = "item",
-    name = "bauxite-ore",
-    icon = "__NARMod__/graphics/icons/bauxite-ore.png",
+    name = "bauxite-concentrate",
+    icon = "__NARMod__/graphics/icons/plate/bauxite-concentrate.png",
     flags = {"goes-to-main-inventory"},
     subgroup = "raw-ores",
-    order = "f-a[bauxite-ore]",
+    order = "f-a[bauxite-concentrate]",
     stack_size = 50
   },
 
+  -- 	ALUMINATE
+  
     {
     type = "fluid",
     name = "aluminate",
@@ -1089,7 +1107,7 @@ data:extend(
 	    type = "recipe",
 		name = "aluminate",
 		ingredients= {
-			{type="item",name="bauxite-ore", amount=5},
+			{type="item",name="bauxite-concentrate", amount=5},
 			{type="item",name="sodium-hydroxide", amount=10},
 		},
 		results= {
