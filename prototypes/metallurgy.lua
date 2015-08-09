@@ -30,7 +30,7 @@ data:extend(
 	{
 		type = "item",
 		name = "subsidiary-ore",
-		icon = "__NARMod__/graphics/icons/plate/subsidiary-ore.png",
+		icon = "__NARMod__/graphics/icons/ore/subsidiary-ore.png",
 		flags = {"goes-to-main-inventory"},
 		subgroup = "raw-ores",
 		order = "a[subsidiary-ore]",
