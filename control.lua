@@ -147,16 +147,16 @@ game.on_event(defines.events.on_built_entity, function(event)
 
 	local player = game.players[event.player_index]
 
-	if event.createdentity.name == "field-2" then
-		if canPlaceField(event.createdentity) ~= true then
+	if event.created_entity.name == "field-2" then
+		if canPlaceField(event.created_entity) ~= true then
 			player.insert{name = "field", count = 1}
-			event.createdentity.destroy()
+			event.created_entity.destroy()
 			player.print({"msg_buildingFail"})
 			return
 		else
 			local entInfo =
 			{
-				entity = event.createdentity,
+				entity = event.created_entity,
 				fertAmount = 0,
 				lastSeedPos = {x = 2, y = 1},
 				nextUpdate = event.tick + 60
@@ -164,15 +164,15 @@ game.on_event(defines.events.on_built_entity, function(event)
 			table.insert(global.treefarm.field, entInfo)
 			return
 		end
-	elseif event.createdentity.type == "tree" then
-		local currentSeedTypeName = seedTypeLookUpTable[event.createdentity.name]
+	elseif event.created_entity.type == "tree" then
+		local currentSeedTypeName = seedTypeLookUpTable[event.created_entity.name]
 		if currentSeedTypeName ~= nil then
-			local newEfficiency = calcEfficiency(event.createdentity, false)
+			local newEfficiency = calcEfficiency(event.created_entity, false)
 			local deltaTime = math.ceil((math.random() * global.treefarm.seedTypes[currentSeedTypeName].randomGrowingTime + global.treefarm.seedTypes[currentSeedTypeName].basicGrowingTime) / newEfficiency)
 			local nextUpdateIn = event.tick + deltaTime
 			local entInfo =
 			{
-				entity = event.createdentity,
+				entity = event.created_entity,
 				state = 1,
 				efficiency = newEfficiency,
 				nextUpdate = nextUpdateIn
@@ -180,9 +180,9 @@ game.on_event(defines.events.on_built_entity, function(event)
 			placeSeedIntoList(entInfo, currentSeedTypeName)
 			return
 		end
-	elseif event.createdentity.name == "fieldmk2Overlay" then
+	elseif event.created_entity.name == "fieldmk2Overlay" then
 		local ent = game.create_entity{name = "fieldmk2",
-									  position = event.createdentity.position,
+									  position = event.created_entity.position,
 									  force = game.forces.player}
 		local entInfo =
 		{
@@ -198,7 +198,7 @@ game.on_event(defines.events.on_built_entity, function(event)
 
 		global.treefarm.tmpData.fieldmk2Index = #global.treefarm.fieldmk2
 		showFieldmk2GUI(#global.treefarm.fieldmk2, event.player_index)
-		event.createdentity.destroy()
+		event.created_entity.destroy()
 		return
 	end
 end)
@@ -260,7 +260,7 @@ game.on_event(defines.events.on_tick, function(event)
 
 				if newState <= #global.treefarm.seedTypes[seedTypeName].states then
 					local tmpPos = removedEntity.entity.position
-					local newEnt = game.create_entity{name = global.treefarm.seedTypes[seedTypeLookUpTable[removedEntity.entity.name]].states[newState], position = tmpPos}
+					local newEnt = game.get_surface(1).create_entity{name = global.treefarm.seedTypes[seedTypeLookUpTable[removedEntity.entity.name]].states[newState], position = tmpPos}
 					removedEntity.entity.destroy()
 					local deltaTime = math.ceil((math.random() * global.treefarm.seedTypes[seedTypeName].randomGrowingTime + global.treefarm.seedTypes[seedTypeName].basicGrowingTime) / removedEntity.efficiency)
 					local updatedEntry =
@@ -370,7 +370,7 @@ end
 
 function calcEfficiency(entity, fertilizerApplied)
 	local seedType = seedTypeLookUpTable[entity.name]
-	local currentTilename = game.get_tile(entity.position.x, entity.position.y).name
+	local currentTilename = game.get_surface(1).get_tile(entity.position.x, entity.position.y).name
 
 	local efficiency
 	if global.treefarm.seedTypes[seedType].efficiency[currentTilename] == nil then
@@ -438,7 +438,7 @@ function fieldMaintainer(tick)
 		local lastPos = {x = global.treefarm.field[1].lastSeedPos.x, y = global.treefarm.field[1].lastSeedPos.y}
 		for dx = lastPos.x, 7 do
 			for dy = 1, 7 do
-				if (game.can_place_entity{name = "germling", position = {fieldPos.x + dx - 0.5, fieldPos.y + dy - 0.5}}) then
+				if (game.get_surface(1).can_place_entity{name = "germling", position = {fieldPos.x + dx - 0.5, fieldPos.y + dy - 0.5}}) then
 					seedPos = {x = fieldPos.x + dx - 0.5, y = fieldPos.y + dy - 0.5}
 					placed = true
 					global.treefarm.field[1].lastSeedPos = {x = dx, y = dy}
@@ -453,7 +453,7 @@ function fieldMaintainer(tick)
 		if (placed == false) and (lastPos.x ~= 2) then
 			for dx = 2, lastPos.x - 1 do
 				for dy = 1, 7 do
-					if (game.can_place_entity{name = "germling", position = {fieldPos.x + dx - 0.5, fieldPos.y + dy - 0.5}}) then
+					if (game.get_surface(1).can_place_entity{name = "germling", position = {fieldPos.x + dx - 0.5, fieldPos.y + dy - 0.5}}) then
 						seedPos = {x = fieldPos.x + dx - 0.5, y = fieldPos.y + dy - 0.5}
 						placed = true
 						global.treefarm.field[1].lastSeedPos = {x = dx, y = dy}
@@ -469,7 +469,7 @@ function fieldMaintainer(tick)
 		if seedPos ~= false then
 
 			local seedTypeName = seedTypeLookUpTable[seedInInv.name]
-			local newEntity = game.create_entity{name = seedInInv.name, position = seedPos}
+			local newEntity = game.get_surface(1).create_entity{name = seedInInv.name, position = seedPos}
 			local newFertilized = false
 
 			if (global.treefarm.field[1].fertAmount <= 0) and (global.treefarm.field[1].entity.get_inventory(2).get_item_count("fertilizer") > 0) then
@@ -500,7 +500,7 @@ function fieldMaintainer(tick)
 
 	-- HARVESTING --
 	local fieldPos = {x = global.treefarm.field[1].entity.position.x, y = global.treefarm.field[1].entity.position.y}
-	local grownEntities = game.find_entitiesfiltered{area = {fieldPos, {fieldPos.x + 8, fieldPos.y + 8}}, type = "tree"}
+	local grownEntities = game.get_surface(1).find_entities_filtered{area = {fieldPos, {fieldPos.x + 8, fieldPos.y + 8}}, type = "tree"}
 	for _,entity in ipairs(grownEntities) do
 		for _,seedType in pairs(global.treefarm.seedTypes) do
 			if entity.name == seedType.states[#seedType.states] then
