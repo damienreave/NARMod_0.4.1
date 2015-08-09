@@ -285,13 +285,7 @@ data:extend( {
       },
       projectile_creation_distance = 0.6,
       range = 20,
-      sound =
-      {
-        {
-          filename = "__base__/sound/gunshot.ogg",
-          volume = 0.3
-        }
-      }
+      sound = make_heavy_gunshot_sounds(),
     },
     stack_size = 50
   },
