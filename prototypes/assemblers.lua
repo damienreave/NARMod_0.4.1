@@ -38,7 +38,7 @@ data:extend(
 		minable = {hardness = 0.2,mining_time = 0.5,result = "crusher"},
 		max_health = 100,
 		corpse = "big-remnants",
-		dying_explosion = "huge-explosion",
+		dying_explosion = "big-explosion",
 		module_slots = 1,
 		resistances = {{type = "fire",percent = 70}},
 		working_sound = {
@@ -91,7 +91,7 @@ data:extend(
     minable = {mining_time = 1, result = "electric-furnace-2"},
     max_health = 150,
     corpse = "big-remnants",
-    dying_explosion = "huge-explosion",
+    dying_explosion = "big-explosion",
     light = {intensity = 1, size = 10},
 	ingredient_count = 6,
     resistances = 
@@ -485,7 +485,7 @@ data:extend(
     minable = {hardness = 0.2, mining_time = 0.5, result = "hermetically-sealed-assembler"},
     max_health = 250,
     corpse = "big-remnants",
-    dying_explosion = "huge-explosion",
+    dying_explosion = "big-explosion",
     resistances =
     {
       {
@@ -718,7 +718,7 @@ data:extend(
     minable = {hardness = 0.2, mining_time = 0.5, result = "assembling-machine-1"},
     max_health = 200,
     corpse = "big-remnants",
-    dying_explosion = "huge-explosion",
+    dying_explosion = "big-explosion",
     resistances =
     {
       {

@@ -80,7 +80,7 @@ data:extend(
     minable = {mining_time = 1, result = "lab"},
     max_health = 150,
     corpse = "big-remnants",
-    dying_explosion = "huge-explosion",
+    dying_explosion = "big-explosion",
     collision_box = {{-1.2, -1.2}, {1.2, 1.2}},
     selection_box = {{-1.5, -1.5}, {1.5, 1.5}},
     light = {intensity = 0.75, size = 8},
@@ -482,7 +482,7 @@ data:extend(
     minable = {hardness = 0.2, mining_time = 0.5, result = "workshop"},
     max_health = 200,
     corpse = "big-remnants",
-    dying_explosion = "huge-explosion",
+    dying_explosion = "big-explosion",
     resistances =
     {
       {

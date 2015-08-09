@@ -802,7 +802,7 @@ data:extend( {
     minable = {mining_time = 1, result = "car"},
     max_health = 200,
     corpse = "medium-remnants",
-    dying_explosion = "huge-explosion",
+    dying_explosion = "big-explosion",
     energy_per_hit_point = 1,
     resistances =
     {

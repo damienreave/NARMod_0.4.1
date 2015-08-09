@@ -603,6 +603,7 @@ data:extend(
 	{
 	    type = "recipe",
 		name = "pure-zinc-isp",
+		icon = "__NARMod__/graphics/icons/plate/pure-zinc.png",
 		ingredients =
 		{
 			{type="item", name="zinc-oxide", amount=20},
