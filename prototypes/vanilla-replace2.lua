@@ -140,20 +140,20 @@ data:extend(
     },
     result = "express-splitter"
   },
-  {
-    type = "recipe",
-    name = "rocket-defense",
-    enabled = "false",
-    ingredients =
-    {
-      {"steel-plate", 40},
-	  {"rocket", 40},
-      {"speed-module-3", 40},
-      {"productivity-module-3", 40},
-	  {"effectivity-module-3", 40}
-    },
-    result = "rocket-defense"
-  },
+  -- {
+    -- type = "recipe",
+    -- name = "rocket-silo",
+    -- enabled = "false",
+    -- ingredients =
+    -- {
+      -- {"steel-plate", 1000},
+	  -- {"rocket", 40},
+      -- {"speed-module-3", 40},
+      -- {"productivity-module-3", 40},
+	  -- {"effectivity-module-3", 40}
+    -- },
+    -- result = "rocket-silo"
+  -- },
   {
     type = "recipe",
     name = "roboport",
