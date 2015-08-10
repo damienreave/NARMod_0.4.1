@@ -147,7 +147,7 @@ data:extend(
   {
 		type = "recipe",
 		name = "oxygen-gas-to-liquid-oxygen",
-		category = "heat-exchanger-crafting",
+		category = "heater-exchanger-crafting",
 		subgroup = "liquid-to-gas",
 		order = "e",
 		energy_required = 10,
@@ -456,7 +456,7 @@ data:extend(
 	{
     type = "recipe",
     name = "air-liquefaction",
-    category = "heat-exchanger-crafting",
+    category = "heater-exchanger-crafting",
     enabled = "false",
     energy_required = 60,
 	subgroup = "gasses",
@@ -501,14 +501,14 @@ data:extend(
     order = "c"
   },
   
--- HEAT EXCHANGER
+-- HEATER EXCHANGER
 
 {
     type = "assembling-machine",
-    name = "heat-exchanger",
-    icon = "__NARMod__/graphics/icons/heat-exchanger.png",
+    name = "heater-exchanger",
+    icon = "__NARMod__/graphics/icons/heater-exchanger.png",
     flags = {"placeable-neutral","player-creation"},
-    minable = {mining_time = 1, result = "heat-exchanger"},
+    minable = {mining_time = 1, result = "heater-exchanger"},
     max_health = 300,
     corpse = "big-remnants",
     dying_explosion = "big-explosion",
@@ -516,7 +516,7 @@ data:extend(
     selection_box = {{-2.5, -2.5}, {2.5, 2.5}},
     module_slots = 2,
     allowed_effects = {"consumption", "speed", "productivity", "pollution"},
-    crafting_categories = {"heat-exchanger-crafting"},
+    crafting_categories = {"heater-exchanger-crafting"},
     crafting_speed = 1,
     has_backer_name = true,
     energy_source =
@@ -531,7 +531,7 @@ data:extend(
     {
       north =
       {
-        filename = "__NARMod__/graphics/entity/heat-exchanger/heat-exchanger.png",
+        filename = "__NARMod__/graphics/entity/heater-exchanger/heater-exchanger.png",
         width = 337,
         height = 255,
         frame_count = 1,
@@ -539,7 +539,7 @@ data:extend(
       },
       east =
       {
-        filename = "__NARMod__/graphics/entity/heat-exchanger/heat-exchanger.png",
+        filename = "__NARMod__/graphics/entity/heater-exchanger/heater-exchanger.png",
         x = 337,
         width = 337,
         height = 255,
@@ -548,7 +548,7 @@ data:extend(
       },
       south =
       {
-        filename = "__NARMod__/graphics/entity/heat-exchanger/heat-exchanger.png",
+        filename = "__NARMod__/graphics/entity/heater-exchanger/heater-exchanger.png",
         x = 674,
         width = 337,
         height = 255,
@@ -557,7 +557,7 @@ data:extend(
       },
       west =
       {
-        filename = "__NARMod__/graphics/entity/heat-exchanger/heat-exchanger.png",
+        filename = "__NARMod__/graphics/entity/heater-exchanger/heater-exchanger.png",
         x = 1011,
         width = 337,
         height = 255,
@@ -633,18 +633,18 @@ data:extend(
 
 {
     type = "item",
-    name = "heat-exchanger",
-    icon = "__NARMod__/graphics/icons/heat-exchanger.png",
+    name = "heater-exchanger",
+    icon = "__NARMod__/graphics/icons/heater-exchanger.png",
     flags = {"goes-to-quickbar"},
     subgroup = "air",
     order = "b[assembling-machine-2]",
-    place_result = "heat-exchanger",
+    place_result = "heater-exchanger",
     stack_size = 1
   },
 
  {
     type = "recipe",
-    name = "heat-exchanger",
+    name = "heater-exchanger",
     enabled = "false",
 	energy_required = 30,
     ingredients =
@@ -655,7 +655,7 @@ data:extend(
 		{"turbine",5},
 		{"storage-tank-2",10},
     },
-    result = "heat-exchanger"
+    result = "heater-exchanger"
   },
   
   -- AIR SEPARATION UNIT

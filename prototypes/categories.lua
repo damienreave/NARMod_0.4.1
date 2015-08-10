@@ -425,7 +425,7 @@ data:extend(
 	
 	{
 		type = "recipe-category",
-		name = "heat-exchanger-crafting"
+		name = "heater-exchanger-crafting"
 	},
 	
 	{
