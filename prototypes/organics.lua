@@ -59,6 +59,7 @@ data:extend(
 		type = "recipe",
 		name = "nitrogen-fertilizer",
 		category = "bioreactor-crafting",
+		subgroup = "organic-biomass",
 		energy_required = 3,
 		icon = "__NARMod__/graphics/icons/nitrogen-fertilizer.png",
 		ingredients =
@@ -92,6 +93,7 @@ data:extend(
 	{
 		type = "recipe",
 		name = "phosphate-fertilizer",
+		subgroup = "organic-biomass",
 		category = "bioreactor-crafting",
 		energy_required = 3,
 		icon = "__NARMod__/graphics/icons/phosphate-fertilizer.png",
@@ -126,6 +128,7 @@ data:extend(
 	{
 		type = "recipe",
 		name = "potassium-fertilizer",
+		subgroup = "organic-biomass",
 		category = "bioreactor-crafting",
 		energy_required = 3,
 		icon = "__NARMod__/graphics/icons/potassium-fertilizer.png",
@@ -562,6 +565,7 @@ data:extend(
 			type = "use-on-self",
 			attack_parameters =
 			{
+				type = "projectile",
 				ammo_category = "capsule",
 				cooldown = 30,
 				range = 0,

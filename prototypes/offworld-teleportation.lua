@@ -134,7 +134,7 @@
     minable = {hardness = 0.2, mining_time = 5, result = "offworld-teleporter"},
     max_health = 250,
     corpse = "big-remnants",
-    dying_explosion = "huge-explosion",
+    dying_explosion = "big-explosion",
     resistances =
     {
       {

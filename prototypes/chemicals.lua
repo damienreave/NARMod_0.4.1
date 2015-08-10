@@ -144,146 +144,6 @@ data:extend(
     order = "b[fluid-chemistry]-c[methane]"
   },
   
-  	-- NITROCHLOROBENZENE
-
-   {
-    type = "fluid",
-    name = "nitrochlorobenzene",
-    default_temperature = 25,
-    heat_capacity = "1KJ",
-    base_color = {r=0.4, g=0, b=0.4},
-    flow_color = {r=0.5, g=0.5, b=0.5},
-    max_temperature = 100,
-    icon = "__NARMod__/graphics/icons/nitrochlorobenzene.png",
-    pressure_to_speed_ratio = 0.4,
-    flow_to_energy_ratio = 0.59,
-    order = "a[fluid]-e[nitrochlorobenzene]"
-  },
-  
-  {
-    type = "recipe",
-    name = "nitrochlorobenzene",
-    category = "chemistry",
-    energy_required = 5,
-    ingredients =
-    {
-      {type="fluid", name="nitrogen-gas", amount=1},
-	  {type="fluid", name="chlorine", amount=1},
-	  {type="fluid", name="light-oil", amount=5}
-    },
-    results=
-    {
-		{type="fluid", name="nitrochlorobenzene", amount=1},
-    },
-    icon = "__NARMod__/graphics/icons/nitrochlorobenzene.png",
-    subgroup = "chemistry",
-    enabled = "false",
-    order = "b[fluid-chemistry]-c[nitrochlorobenzene]"
-  },
-  
-  -- PHENYLENEDIAMINE
-
-   {
-    type = "fluid",
-    name = "phenylenediamine",
-    default_temperature = 25,
-    heat_capacity = "1KJ",
-    base_color = {r=0.4, g=0, b=0.4},
-    flow_color = {r=0.5, g=0.5, b=0.5},
-    max_temperature = 100,
-    icon = "__NARMod__/graphics/icons/phenylenediamine.png",
-    pressure_to_speed_ratio = 0.4,
-    flow_to_energy_ratio = 0.59,
-    order = "a[fluid]-e[phenylenediamine]"
-  },
-  
-  {
-    type = "recipe",
-    name = "phenylenediamine",
-    category = "chemistry",
-    energy_required = 5,
-    ingredients =
-    {
-      {type="fluid", name="nitrochlorobenzene", amount=5},
-	  {type="fluid", name="ammonia", amount=1},
-    },
-    results=
-    {
-		{type="fluid", name="phenylenediamine", amount=5},
-    },
-    icon = "__NARMod__/graphics/icons/phenylenediamine.png",
-    subgroup = "chemistry",
-    enabled = "false",
-    order = "b[fluid-chemistry]-c[phenylenediamine]"
-  },
-  
-  -- TEREPHTHALOYL CHLORIDE
-
-   {
-    type = "fluid",
-    name = "terephthaloyl-chloride",
-    default_temperature = 25,
-    heat_capacity = "1KJ",
-    base_color = {r=0.4, g=0, b=0.4},
-    flow_color = {r=0.5, g=0.5, b=0.5},
-    max_temperature = 100,
-    icon = "__NARMod__/graphics/icons/terephthaloyl-chloride.png",
-    pressure_to_speed_ratio = 0.4,
-    flow_to_energy_ratio = 0.59,
-    order = "a[fluid]-e[terephthaloyl-chloride]"
-  },
-  
-  {
-    type = "recipe",
-    name = "terephthaloyl-chloride",
-    category = "chemistry",
-    energy_required = 5,
-    ingredients =
-    {
-      {type="fluid", name="light-oil", amount=5},
-	  {type="fluid", name="chlorine", amount=1},
-    },
-    results=
-    {
-		{type="fluid", name="terephthaloyl-chloride", amount=5},
-    },
-    icon = "__NARMod__/graphics/icons/terephthaloyl-chloride.png",
-    subgroup = "chemistry",
-    enabled = "false",
-    order = "b[fluid-chemistry]-c[terephthaloyl-chloride]"
-  },
-  
-  -- KEVLAR
-  
-	{
-		type = "recipe",
-		name = "kevlar",
-		category = "chemistry",
-		energy_required = 5,
-		icon = "__NARMod__/graphics/icons/kevlar.png",
-		ingredients =
-		{
-		  {type="fluid", name="terephthaloyl-chloride", amount=1},
-		  {type="fluid", name="phenylenediamine", amount=1},
-		},
-		results=
-		{
-			{type="item", name="kevlar", amount=1}
-		},
-		enabled = "false"
-	},
-	
-	  
-  {
-    type = "item",
-    name = "kevlar",
-    icon = "__NARMod__/graphics/icons/kevlar.png",
-    flags = {"goes-to-main-inventory"},
-    subgroup = "chemistry",
-    order = "f[kevlar]",
-    stack_size = 50
-  },
-  
   -- PHOTORESIST SOLUTION
   
   {
@@ -657,40 +517,6 @@ data:extend(
     order = "b[fluid-chemistry]-c[solid-fuel-from-hydrogen]"
   },
 
-  -- BRINE WATER
-  
-  {
-    type = "fluid",
-    name = "brine-water",
-    default_temperature = 15,
-    max_temperature = 100,
-    heat_capacity = "1KJ",
-    base_color = {r=0, g=0.34, b=0.6},
-    flow_color = {r=0.7, g=1.0, b=1.0},
-    icon = "__NARMod__/graphics/icons/brine-water.png",
-    pressure_to_speed_ratio = 0.4,
-    flow_to_energy_ratio = 0.59,
-    order = "a[fluid]-a[brine-water]",
-  },
-  
-  {
-    type = "recipe",
-    name = "brine-water",
-    category = "stone-sorter",
-	subgroup = "stone-sorter",
-    enabled = false,
-    energy_required = 2,
-    ingredients =
-    {
-    },
-    results = 
-    {
-      {type="fluid", name="brine-water", amount=1}
-    },
-    icon = "__NARMod__/graphics/icons/brine-water.png",
-    order = "b[fluid-chemistry]-b[brine-water]"
-  },
-	
 	-- WATER ELECTROLYSIS
 	
   {
@@ -1018,6 +844,45 @@ data:extend(
     main_product= "sulfur-dioxide",
     icon = "__NARMod__/graphics/icons/sulfur-dioxide.png",
     order = "b[fluid-chemistry]-f[sulfuric-acid]"
+  },
+
+
+  {
+    
+	type = "recipe",
+    
+	name = "sulfur-dioxide-to-atmosphere",
+    
+	category = "evaporator-crafting",
+	
+	subgroup = "evaporation",
+	
+	order = "c",
+    
+	enabled = false,
+    
+	energy_required = 10,
+    
+	ingredients =
+    
+	{
+		
+		{type="fluid", name="sulfur-dioxide", amount=10}
+    
+	},
+    
+	results = 
+    
+	{
+       
+		{type="fluid", name="sulfur-dioxide", amount=1}
+    
+	},
+    
+	icon = "__NARMod__/graphics/icons/sulfur-dioxide-to-atmosphere.png",
+    
+	order = "b[fluid-chemistry]-b"
+  
   },
   
   -- NITRIC ACID
