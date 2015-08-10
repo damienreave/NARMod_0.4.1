@@ -825,7 +825,7 @@ data:extend({
     {
       {
         type = "unlock-recipe",
-        recipe = "heat-exchanger"
+        recipe = "heater-exchanger"
       },
 	  {
         type = "unlock-recipe",
