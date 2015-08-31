@@ -289,7 +289,7 @@ data:extend(
     {
 	  {"iron-gear-wheel", 2},
       {"iron-plate", 2},
-	  {"copper-cable", 2}
+	  {"copper-cable", 4}
     },
     result = "small-electric-motor"
   },

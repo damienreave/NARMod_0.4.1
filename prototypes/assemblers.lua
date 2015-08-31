@@ -101,6 +101,17 @@ data:extend(
         percent = 80
       }
     },
+    fluid_boxes =
+    {
+      {
+        production_type = "output",
+        pipe_picture = assembler3pipepictures(),
+        pipe_covers = pipecoverspictures(),
+        base_level = 1,
+        pipe_connections = {{ position = {0, 2} }}
+     },	
+	off_when_no_fluid_recipe = true
+    },
     collision_box = {{-1.2, -1.2}, {1.2, 1.2}},
     selection_box = {{-1.5, -1.5}, {1.5, 1.5}},
     module_slots = 2,
