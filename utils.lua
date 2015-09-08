@@ -54,13 +54,13 @@ end
 
 
 function initTables()
-	if glob.treefarm ~= nil then
+	if global.treefarm ~= nil then
 		migration100()
 		return
 	end
-	glob.treefarm = {}
+	global.treefarm = {}
 
-	glob.treefarm.field =
+	global.treefarm.field =
 	{
 		--[[
 		example entry:
@@ -71,7 +71,7 @@ function initTables()
 		]]
 	}
 
-	glob.treefarm.fieldmk2 =
+	global.treefarm.fieldmk2 =
 	{
 		--[[
 		example entry:
@@ -84,19 +84,19 @@ function initTables()
 		]]
 	}
 
-	glob.treefarm.tmpData =
+	global.treefarm.tmpData =
 	{
 		--contains data that have to be saved just temporary
 	}
 
-	glob.treefarm.seedTypes =
+	global.treefarm.seedTypes =
 	{
 		basicTrees = {}
 		-- other types can be added via script-interface
 	}
 
 	-- example how a "type"-table looks like
-	glob.treefarm.seedTypes.basicTrees =
+	global.treefarm.seedTypes.basicTrees =
 	{
 		states =
 		{
@@ -125,7 +125,7 @@ function initTables()
 		fertilizerBoost = 1.00
 	}
 
-	glob.treefarm.isGrowing =
+	global.treefarm.isGrowing =
 	{
 		-- a by number indexed table that contains all info related to entities of this type
 		-- it is ordered with the first element will be upgraded next
@@ -145,22 +145,22 @@ function initTables()
 		}
 	}
 
-	glob.treefarm.version = "1.1.5"
+	global.treefarm.version = "1.1.5"
 
 end
 
 
 function migration100()
 	for _,player in pairs(game.players) do
-		player.force.resettechnologies()
-		player.force.resetrecipes()
+		player.force.reset_technologies()
+		player.force.reset_recipes()
 	end
 	local tmpFieldEntities = {}
 	local tmpFieldmk2Entities = {}
 	local tmpGrowingTrees = {}
 
-	if glob.treefarm.field ~= nil then
-		for index, fieldEnt in ipairs(glob.treefarm.field) do
+	if global.treefarm.field ~= nil then
+		for index, fieldEnt in ipairs(global.treefarm.field) do
 			if fieldEnt.valid then
 				local tmpFieldTable =
 				{
@@ -170,30 +170,30 @@ function migration100()
 				}
 				table.insert(tmpFieldEntities, tmpFieldTable)
 				local fieldPos = {x = fieldEnt.position.x, y = fieldEnt.position.y}
-				local grownEntities = game.findentitiesfiltered{area = {fieldPos, {fieldPos.x + 8, fieldPos.y + 8}}, type = "tree"}
+				local grownEntities = game.find_entitiesfiltered{area = {fieldPos, {fieldPos.x + 8, fieldPos.y + 8}}, type = "tree"}
 				for _,tree in ipairs(grownEntities) do
 					tree.destroy()
-					fieldEnt.getinventory(1).insert{name = "raw-wood", count = 5}
+					fieldEnt.get_inventory(1).insert{name = "raw-wood", count = 5}
 				end
 			end
 		end
 	end
 
-	if glob.treefarm.efficiency ~= nil then
-		glob.treefarm.efficiency = nil
+	if global.treefarm.efficiency ~= nil then
+		global.treefarm.efficiency = nil
 	end
 
-	if glob.treefarm.tick ~= nil then
-		glob.treefarm.tick = nil
+	if global.treefarm.tick ~= nil then
+		global.treefarm.tick = nil
 	end
 
-	if (glob.treefarm.fieldmk2 ~= nil) and (glob.treefarm.fieldmk2.entities ~= nil) then
-		for index, fieldEnt in ipairs(glob.treefarm.fieldmk2.entities) do
+	if (global.treefarm.fieldmk2 ~= nil) and (global.treefarm.fieldmk2.entities ~= nil) then
+		for index, fieldEnt in ipairs(global.treefarm.fieldmk2.entities) do
 			local tmpFieldTable =
 			{
 				["entity"] = fieldEnt,
-				["active"] = glob.treefarm.fieldmk2.active[index],
-				["areaRadius"] = glob.treefarm.fieldmk2.area[index],
+				["active"] = global.treefarm.fieldmk2.active[index],
+				["areaRadius"] = global.treefarm.fieldmk2.area[index],
 				["fertAmount"] = 0,
 				["nextUpdate"] = game.tick + 60 + math.ceil(math.random() * 120)
 			}
@@ -201,13 +201,13 @@ function migration100()
 		end
 	end
 
-	if glob.treefarm.growingTrees ~= nil then
-		for index, treeEnt in ipairs(glob.treefarm.growingTrees.entities) do
+	if global.treefarm.growingTrees ~= nil then
+		for index, treeEnt in ipairs(global.treefarm.growingTrees.entities) do
 			local tmpTreeTable =
 			{
 				["entity"] = treeEnt,
-				["state"] = glob.treefarm.growingTrees.status[index],
-				["efficiency"] = glob.treefarm.growingTrees.efficiency[index],
+				["state"] = global.treefarm.growingTrees.status[index],
+				["efficiency"] = global.treefarm.growingTrees.efficiency[index],
 				["fertilized"] = false,
 				["nextUpdate"] = game.tick + math.ceil(math.random() * 3600)
 			}
@@ -216,16 +216,16 @@ function migration100()
 		end
 	end
 
-	if (glob.treefarm.fieldmk2 ~= nil) and (glob.treefarm.fieldmk2.tmpIndex ~= nil) then
-		glob.treefarm.fieldmk2.tmpIndex = nil
+	if (global.treefarm.fieldmk2 ~= nil) and (global.treefarm.fieldmk2.tmpIndex ~= nil) then
+		global.treefarm.fieldmk2.tmpIndex = nil
 	end
 
-	glob.treefarm = {}
-	glob.treefarm.field = {}
-	glob.treefarm.fieldmk2 = {}
-	glob.treefarm.tmpData = {}
-	glob.treefarm.seedTypes ={basicTrees = {}}
-	glob.treefarm.seedTypes.basicTrees =
+	global.treefarm = {}
+	global.treefarm.field = {}
+	global.treefarm.fieldmk2 = {}
+	global.treefarm.tmpData = {}
+	global.treefarm.seedTypes ={basicTrees = {}}
+	global.treefarm.seedTypes.basicTrees =
 	{
 		states =
 		{
@@ -253,73 +253,73 @@ function migration100()
 		randomGrowingTime = 1800,
 		fertilizerBoost = 1.00
 	}
-	glob.treefarm.isGrowing = {basicTrees = {}}
+	global.treefarm.isGrowing = {basicTrees = {}}
 
-	glob.treefarm.field = table.deepcopy(tmpFieldEntities)
-	glob.treefarm.fieldmk2 = table.deepcopy(tmpFieldmk2Entities)
-	glob.treefarm.isGrowing.basicTrees = table.deepcopy(tmpGrowingTrees)
+	global.treefarm.field = table.deepcopy(tmpFieldEntities)
+	global.treefarm.fieldmk2 = table.deepcopy(tmpFieldmk2Entities)
+	global.treefarm.isGrowing.basicTrees = table.deepcopy(tmpGrowingTrees)
 
-	glob.treefarm.version = "1.0.0"
+	global.treefarm.version = "1.0.0"
 end
 
 function migration102()
 	for _,player in pairs(game.players) do
-		player.force.resettechnologies()
-		player.force.resetrecipes()
+		player.force.reset_technologies()
+		player.force.reset_recipes()
 
 		if player.force.technologies["fertilizer"].researched == true then
 			player.force.recipes["biomass-0"].enabled = true
 		end
-		glob.treefarm.version = "1.0.2"
+		global.treefarm.version = "1.0.2"
 	end
 end
 
 function migration110()
 	for _,player in pairs(game.players) do
-		player.force.resettechnologies()
-		player.force.resetrecipes()
+		player.force.reset_technologies()
+		player.force.reset_recipes()
 	end
 
-	glob.treefarm.version = "1.1.0"
+	global.treefarm.version = "1.1.0"
 end
 
 function migration111()
 	for _,player in pairs(game.players) do
-		player.force.resettechnologies()
-		player.force.resetrecipes()
+		player.force.reset_technologies()
+		player.force.reset_recipes()
 	end
 
-	for index, field in ipairs(glob.treefarm.fieldmk2) do
-		if glob.treefarm.fieldmk2[index].roboport == nil then
-			local tmpRoboport = game.createentity{name = "fieldroboport10",
+	for index, field in ipairs(global.treefarm.fieldmk2) do
+		if global.treefarm.fieldmk2[index].roboport == nil then
+			local tmpRoboport = game.create_entity{name = "fieldroboport10",
 											  	  position = field.entity.position,
 											  	  force = game.frces.player}
-			glob.treefarm.fieldmk2[index].roboport = tmpRoboport
+			global.treefarm.fieldmk2[index].roboport = tmpRoboport
 		end
-		if glob.treefarm.fieldmk2[index].logChest == nil then
-			local tmpLogChest = game.createentity{name = "logistic-chest-requester",
+		if global.treefarm.fieldmk2[index].logChest == nil then
+			local tmpLogChest = game.create_entity{name = "logistic-chest-requester",
 										   	 	  position = { x = field.entity.position.x + 0,
 										   					   y = field.entity.position.y + 1},
 												  force = game.frces.player}
 			tmpLogChest.destructible = false
 			tmpLogChest.minable = false
 			-- LOG CONDITION
-			tmpLogChest.setrequestslot({name="raw-wood", count = 1000}, 1)
-			glob.treefarm.fieldmk2[index].logChest = tmpLogChest
+			tmpLogChest.set_request_slot({name="raw-wood", count = 1000}, 1)
+			global.treefarm.fieldmk2[index].logChest = tmpLogChest
 		end
 	end
 
-	glob.treefarm.version = "1.1.1"
+	global.treefarm.version = "1.1.1"
 end
 
 function migration112()
 	for _,player in pairs(game.players) do
-		player.force.resettechnologies()
-		player.force.resetrecipes()
+		player.force.reset_technologies()
+		player.force.reset_recipes()
 
 
-		for _, fieldEnt in ipairs (glob.treefarm.field) do
-			local tmpEnt = game.createentity{name = "field-2", position = fieldEnt.entity.position, force = game.forces.player}
+		for _, fieldEnt in ipairs (global.treefarm.field) do
+			local tmpEnt = game.create_entity{name = "field-2", position = fieldEnt.entity.position, force = game.forces.player}
 			fieldEnt.entity.destroy()
 			fieldEnt.entity = tmpEnt
 		end
@@ -377,13 +377,13 @@ function migration112()
 			player.force.recipes["tf-flame-thrower-ammo"].enabled = true
 		end
 
-		glob.treefarm.version = "1.1.2"
+		global.treefarm.version = "1.1.2"
 	end
 end
 
 
 function migration114()
-	for _, fieldEnt in ipairs (glob.treefarm.fieldmk2) do
+	for _, fieldEnt in ipairs (global.treefarm.fieldmk2) do
 		if fieldEnt.logChest ~= nil then
 			fieldEnt.logChest.destroy()
 			fieldEnt.logChest = nil
@@ -395,43 +395,43 @@ function migration114()
 		end
 	end
 
-	glob.treefarm.version = "1.1.4"
+	global.treefarm.version = "1.1.4"
 end
 
 
 function migration115()
 	for _,player in pairs(game.players) do
-		player.force.resettechnologies()
-		player.force.resetrecipes()
+		player.force.reset_technologies()
+		player.force.reset_recipes()
 	end
 
-	glob.treefarm.version = "1.1.5"
+	global.treefarm.version = "1.1.5"
 end
 
 
 function migration116()
 	for _,player in pairs(game.players) do
-		player.force.resettechnologies()
-		player.force.resetrecipes()
+		player.force.reset_technologies()
+		player.force.reset_recipes()
 	end
 
-	glob.treefarm.version = "1.1.6"
+	global.treefarm.version = "1.1.6"
 end
 
 
 function migration117()
 	for _,player in pairs(game.players) do
-		player.force.resettechnologies()
-		player.force.resetrecipes()
+		player.force.reset_technologies()
+		player.force.reset_recipes()
 	end
 
-	for _, field in ipairs (glob.treefarm.field) do
+	for _, field in ipairs (global.treefarm.field) do
 		if field.lastSeedPos == nil then
 			field.lastSeedPos = {x = 2, y = 1}
 		end
 	end
 
-	for _, field in ipairs (glob.treefarm.fieldmk2) do
+	for _, field in ipairs (global.treefarm.fieldmk2) do
 		if field.lastSeedPos == nil then
 			field.lastSeedPos = {x = -field.areaRadius, y = -field.areaRadius}
 		end
@@ -442,18 +442,18 @@ function migration117()
 	end
 
 
-	glob.treefarm.version = "1.1.7"
+	global.treefarm.version = "1.1.7"
 end
 
 function migration119()
 
-	for _, treeTypes in pairs(glob.treefarm.seedTypes) do
+	for _, treeTypes in pairs(global.treefarm.seedTypes) do
 		if treeTypes.efficiency.other == 0 then
 			treeTypes.efficiency.other = 0.01
 		end
 	end
 
-	for _, treeTypes in pairs(glob.treefarm.isGrowing) do
+	for _, treeTypes in pairs(global.treefarm.isGrowing) do
 		for _, tree in ipairs(treeTypes) do
 			if tree.efficiency == 0 then
 				tree.efficiency = 1
@@ -462,5 +462,5 @@ function migration119()
 		end
 	end
 
-	glob.treefarm.version = "1.1.9"
+	global.treefarm.version = "1.1.9"
 end
