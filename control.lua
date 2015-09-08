@@ -656,8 +656,8 @@ function canPlaceField(field)
 			if (x == 0) and ( y == 0) then
 				--do nothing
 			else
-				if not game.can_place_entity{name="wooden-chest", position = {fPosX + x, fPosY + y}} then
-					local playerEnt = game.find_entitiesfiltered{area = {{fPosX + x - 1, fPosY + y - 1},{fPosX + x + 1, fPosY + y + 1}}, name="player"}
+				if not game.get_surface(1).can_place_entity{name="wooden-chest", position = {fPosX + x, fPosY + y}} then
+					local playerEnt = game.get_surface(1).find_entities_filtered{area = {{fPosX + x - 1, fPosY + y - 1},{fPosX + x + 1, fPosY + y + 1}}, name="player"}
 					if #playerEnt > 0 then
 						-- do nothing
 					else
@@ -668,7 +668,7 @@ function canPlaceField(field)
 		end
 	end
 	local blockingField = {}
-	blockingField = game.find_entitiesfiltered{area = {{x = fPosX - 8, y = fPosY - 8}, {fPosX + 8, fPosY + 8}}, name="field-2"}
+	blockingField = game.get_surface(1).find_entities_filtered{area = {{x = fPosX - 8, y = fPosY - 8}, {fPosX + 8, fPosY + 8}}, name="field-2"}
 	if #blockingField > 1 then
 		return
 	end
@@ -732,14 +732,14 @@ function createOverlay(fieldTable)
 	if fieldTable.active == true then
 		for i = 0, 2 * radius + 1 do
 			for j = 0, 2 * radius + 1 do
-				local overlay = game.create_entity{name = "tf-overlay-green", position ={x = startPos.x + i, y = startPos.y + j}, force = game.forces.player}
+				local overlay = game.get_surface(1).create_entity{name = "tf-overlay-green", position ={x = startPos.x + i, y = startPos.y + j}, force = game.forces.player}
 				table.insert(global.treefarm.overlayStack, overlay)
 			end
 		end
 	else
 		for i = 0, 2 * radius + 1 do
 			for j = 0, 2 * radius + 1 do
-				local overlay = game.create_entity{name = "tf-overlay-red", position ={x = startPos.x + i, y = startPos.y + j}, force = game.forces.player}
+				local overlay = game.get_surface(1).create_entity{name = "tf-overlay-red", position ={x = startPos.x + i, y = startPos.y + j}, force = game.forces.player}
 				table.insert(global.treefarm.overlayStack, overlay)
 			end
 		end
