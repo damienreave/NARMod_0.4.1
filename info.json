@@ -1,9 +1,9 @@
 {
   "name": "NARMod",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "title": "NARMod",
-  "author": "Damien Reave",
+  "author": "Damien Reave, Blu3wolf", Cooolaid
   "contact": "damienreave@gmail.com",
   "description": "Vastly expanding all crafting aspects of the game. Enable challenge mode in the config files for additional challenge",
-  "dependencies": ["base >= 0.11.0"]
+  "dependencies": ["base >= 0.12.3"]
 }

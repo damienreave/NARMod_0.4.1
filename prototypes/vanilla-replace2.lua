@@ -4,10 +4,10 @@ data.raw["recipe"]["basic-oil-processing"].subgroup = "fluids-oil-processing"
 data.raw["item"]["iron-plate"].subgroup = "raw-plates"
 data.raw["item"]["copper-plate"].subgroup = "raw-plates"
 data.raw["item"]["iron-gear-wheel"].subgroup = "intermediate-gears"
-data.raw["item"]["science-pack-1"].subgroup = "data-pack"
-data.raw["item"]["science-pack-2"].subgroup = "data-pack"
-data.raw["item"]["science-pack-3"].subgroup = "data-pack"
-data.raw["item"]["alien-science-pack"].subgroup = "data-pack"
+data.raw["tool"]["science-pack-1"].subgroup = "data-pack"
+data.raw["tool"]["science-pack-2"].subgroup = "data-pack"
+data.raw["tool"]["science-pack-3"].subgroup = "data-pack"
+data.raw["tool"]["alien-science-pack"].subgroup = "data-pack"
 data.raw["item"]["green-wire"].subgroup = "storage"
 data.raw["item"]["red-wire"].subgroup = "storage"
 
@@ -140,20 +140,20 @@ data:extend(
     },
     result = "express-splitter"
   },
-  {
-    type = "recipe",
-    name = "rocket-defense",
-    enabled = "false",
-    ingredients =
-    {
-      {"steel-plate", 40},
-	  {"rocket", 40},
-      {"speed-module-3", 40},
-      {"productivity-module-3", 40},
-	  {"effectivity-module-3", 40}
-    },
-    result = "rocket-defense"
-  },
+  -- {
+    -- type = "recipe",
+    -- name = "rocket-silo",
+    -- enabled = "false",
+    -- ingredients =
+    -- {
+      -- {"steel-plate", 1000},
+	  -- {"rocket", 40},
+      -- {"speed-module-3", 40},
+      -- {"productivity-module-3", 40},
+	  -- {"effectivity-module-3", 40}
+    -- },
+    -- result = "rocket-silo"
+  -- },
   {
     type = "recipe",
     name = "roboport",

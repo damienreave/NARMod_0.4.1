@@ -2,26 +2,26 @@ require "utils"
 require "defines"
 require "interfaces"
 
-remote.addinterface("narmod",
+remote.add_interface("narmod",
 {
   Regenerate = function()
-	game.regenerateentity("tin-ore")
-	game.regenerateentity("zinc-ore")
-	game.regenerateentity("tungsten-ore")
-	game.regenerateentity("gold-ore")
-	game.regenerateentity("bauxite-ore")
-	game.regenerateentity("lead-ore")
-	game.regenerateentity("rutile-ore")
-	game.regenerateentity("quartz")
-	game.regenerateentity("uraninite-ore")
-	game.regenerateentity("fluorite-ore")
+	game.regenerate_entity("tin-ore")
+	game.regenerate_entity("zinc-ore")
+	game.regenerate_entity("tungsten-ore")
+	game.regenerate_entity("gold-ore")
+	game.regenerate_entity("bauxite-ore")
+	game.regenerate_entity("lead-ore")
+	game.regenerate_entity("rutile-ore")
+	game.regenerate_entity("quartz")
+	game.regenerate_entity("uraninite-ore")
+	game.regenerate_entity("fluorite-ore")
   end
 }
 )
 
 local seedTypeLookUpTable = {}
 function createSeedTypeLookUpTable()
-	for seedTypeName, seedType in pairs(glob.treefarm.seedTypes) do
+	for seedTypeName, seedType in pairs(global.treefarm.seedTypes) do
 		for _, stateName in pairs(seedType.states) do
 			seedTypeLookUpTable[stateName] = seedTypeName
 		end
@@ -29,19 +29,19 @@ function createSeedTypeLookUpTable()
 end
 
 
-game.oninit(function()
+game.on_init(function()
 	utils.initTables()
 
-	for _, treeTypes in pairs(glob.treefarm.seedTypes) do
+	for _, treeTypes in pairs(global.treefarm.seedTypes) do
 		if treeTypes.efficiency.other == 0 then
 			treeTypes.efficiency.other = 0.01
 		end
 	end
 
-	for seedTypeName, seedTypeInfo in pairs (glob.treefarm.seedTypes) do
-		if game.itemprototypes[seedTypeInfo.states[1]] == nil then
-			glob.treefarm.isGrowing[seedTypeName] = nil
-			glob.treefarm.seedTypes[seedTypeName] = nil
+	for seedTypeName, seedTypeInfo in pairs (global.treefarm.seedTypes) do
+		if game.item_prototypes[seedTypeInfo.states[1]] == nil then
+			global.treefarm.isGrowing[seedTypeName] = nil
+			global.treefarm.seedTypes[seedTypeName] = nil
 		end
 	end
 
@@ -49,18 +49,18 @@ game.oninit(function()
 end)
 
 
-game.onload(function()
+game.on_load(function()
 
-	for _, treeTypes in pairs(glob.treefarm.seedTypes) do
+	for _, treeTypes in pairs(global.treefarm.seedTypes) do
 		if treeTypes.efficiency.other == 0 then
 			treeTypes.efficiency.other = 0.01
 		end
 	end
 
-	for seedTypeName, seedTypeInfo in pairs (glob.treefarm.seedTypes) do
-		if game.itemprototypes[seedTypeInfo.states[1]] == nil then
-			glob.treefarm.isGrowing[seedTypeName] = nil
-			glob.treefarm.seedTypes[seedTypeName] = nil
+	for seedTypeName, seedTypeInfo in pairs (global.treefarm.seedTypes) do
+		if game.item_prototypes[seedTypeInfo.states[1]] == nil then
+			global.treefarm.isGrowing[seedTypeName] = nil
+			global.treefarm.seedTypes[seedTypeName] = nil
 		end
 	end
 
@@ -69,37 +69,18 @@ game.onload(function()
 end)
 
 
-game.onevent(defines.events.onplayermineditem, function(event)
-	if event.itemstack.name == "field" then
-		for index, field in ipairs(glob.treefarm.field) do
+game.on_event(defines.events.on_player_mined_item, function(event)
+	if event.item_stack.name == "field" then
+		for index, field in ipairs(global.treefarm.field) do
 			if not field.entity.valid then
-				table.remove(glob.treefarm.field, index)
+				table.remove(global.treefarm.field, index)
 				return
 			end
 		end
-	elseif event.itemstack.name == "fieldmk2" then
-		for index, field in ipairs(glob.treefarm.fieldmk2) do
+	elseif event.item_stack.name == "fieldmk2" then
+		for index, field in ipairs(global.treefarm.fieldmk2) do
 			if not field.entity.valid then
-				table.remove(glob.treefarm.fieldmk2, index)
-				return
-			end
-		end
-	end
-end)
-
-
-game.onevent(defines.events.onrobotmined, function(event)
-	if event.itemstack.name == "field" then
-		for index, field in ipairs(glob.treefarm.field) do
-			if not field.entity.valid then
-				table.remove(glob.treefarm.field, index)
-				return
-			end
-		end
-	elseif event.itemstack.name == "fieldmk2" then
-		for index, field in ipairs(glob.treefarm.fieldmk2) do
-			if not field.entity.valid then
-				table.remove(glob.treefarm.fieldmk2, index)
+				table.remove(global.treefarm.fieldmk2, index)
 				return
 			end
 		end
@@ -107,18 +88,37 @@ game.onevent(defines.events.onrobotmined, function(event)
 end)
 
 
-game.onevent(defines.events.onentitydied, function(event)
+game.on_event(defines.events.on_robot_mined, function(event)
+	if event.item_stack.name == "field" then
+		for index, field in ipairs(global.treefarm.field) do
+			if not field.entity.valid then
+				table.remove(global.treefarm.field, index)
+				return
+			end
+		end
+	elseif event.item_stack.name == "fieldmk2" then
+		for index, field in ipairs(global.treefarm.fieldmk2) do
+			if not field.entity.valid then
+				table.remove(global.treefarm.fieldmk2, index)
+				return
+			end
+		end
+	end
+end)
+
+
+game.on_event(defines.events.on_entity_died, function(event)
 	if event.entity.name == "field-2" then
-		for index,entInfo in ipairs(glob.treefarm.field) do
+		for index,entInfo in ipairs(global.treefarm.field) do
 			if  entInfo.entity.equals(event.entity) then
-				table.remove(glob.treefarm.field, index)
+				table.remove(global.treefarm.field, index)
 				return
 			end
 		end
 	elseif event.entity.name == "fieldmk2" then
-		for index,entInfo in ipairs(glob.treefarm.fieldmk2) do
+		for index,entInfo in ipairs(global.treefarm.fieldmk2) do
 			if  entInfo.entity.equals(event.entity) then
-				table.remove(glob.treefarm.fieldmk2, index)
+				table.remove(global.treefarm.fieldmk2, index)
 				return
 			end
 		end
@@ -126,14 +126,14 @@ game.onevent(defines.events.onentitydied, function(event)
 end)
 
 
-game.onevent(defines.events.onputitem, function(event)
+game.on_event(defines.events.on_put_item, function(event)
 
 	for playerIndex,player in pairs(game.players) do
 		if (player ~= nil) and (player.selected ~= nil) then
 			if player.selected.name == "fieldmk2" then
-				for index, entInfo in ipairs(glob.treefarm.fieldmk2) do
+				for index, entInfo in ipairs(global.treefarm.fieldmk2) do
 					if entInfo.entity.equals(player.selected) then
-						glob.treefarm.tmpData.fieldmk2Index = index
+						global.treefarm.tmpData.fieldmk2Index = index
 						showFieldmk2GUI(index, playerIndex)
 					end
 				end
@@ -143,36 +143,36 @@ game.onevent(defines.events.onputitem, function(event)
 end)
 
 
-game.onevent(defines.events.onbuiltentity, function(event)
+game.on_event(defines.events.on_built_entity, function(event)
 
-	local player = game.players[event.playerindex]
+	local player = game.players[event.player_index]
 
-	if event.createdentity.name == "field-2" then
-		if canPlaceField(event.createdentity) ~= true then
+	if event.created_entity.name == "field-2" then
+		if canPlaceField(event.created_entity) ~= true then
 			player.insert{name = "field", count = 1}
-			event.createdentity.destroy()
+			event.created_entity.destroy()
 			player.print({"msg_buildingFail"})
 			return
 		else
 			local entInfo =
 			{
-				entity = event.createdentity,
+				entity = event.created_entity,
 				fertAmount = 0,
 				lastSeedPos = {x = 2, y = 1},
 				nextUpdate = event.tick + 60
 			}
-			table.insert(glob.treefarm.field, entInfo)
+			table.insert(global.treefarm.field, entInfo)
 			return
 		end
-	elseif event.createdentity.type == "tree" then
-		local currentSeedTypeName = seedTypeLookUpTable[event.createdentity.name]
+	elseif event.created_entity.type == "tree" then
+		local currentSeedTypeName = seedTypeLookUpTable[event.created_entity.name]
 		if currentSeedTypeName ~= nil then
-			local newEfficiency = calcEfficiency(event.createdentity, false)
-			local deltaTime = math.ceil((math.random() * glob.treefarm.seedTypes[currentSeedTypeName].randomGrowingTime + glob.treefarm.seedTypes[currentSeedTypeName].basicGrowingTime) / newEfficiency)
+			local newEfficiency = calcEfficiency(event.created_entity, false)
+			local deltaTime = math.ceil((math.random() * global.treefarm.seedTypes[currentSeedTypeName].randomGrowingTime + global.treefarm.seedTypes[currentSeedTypeName].basicGrowingTime) / newEfficiency)
 			local nextUpdateIn = event.tick + deltaTime
 			local entInfo =
 			{
-				entity = event.createdentity,
+				entity = event.created_entity,
 				state = 1,
 				efficiency = newEfficiency,
 				nextUpdate = nextUpdateIn
@@ -180,9 +180,9 @@ game.onevent(defines.events.onbuiltentity, function(event)
 			placeSeedIntoList(entInfo, currentSeedTypeName)
 			return
 		end
-	elseif event.createdentity.name == "fieldmk2Overlay" then
-		local ent = game.createentity{name = "fieldmk2",
-									  position = event.createdentity.position,
+	elseif event.created_entity.name == "fieldmk2Overlay" then
+		local ent = game.create_entity{name = "fieldmk2",
+									  position = event.created_entity.position,
 									  force = game.forces.player}
 		local entInfo =
 		{
@@ -194,61 +194,61 @@ game.onevent(defines.events.onbuiltentity, function(event)
 			toBeHarvested = {},
 			nextUpdate = event.tick + 60
 		}
-		table.insert(glob.treefarm.fieldmk2, entInfo)
+		table.insert(global.treefarm.fieldmk2, entInfo)
 
-		glob.treefarm.tmpData.fieldmk2Index = #glob.treefarm.fieldmk2
-		showFieldmk2GUI(#glob.treefarm.fieldmk2, event.playerindex)
-		event.createdentity.destroy()
+		global.treefarm.tmpData.fieldmk2Index = #global.treefarm.fieldmk2
+		showFieldmk2GUI(#global.treefarm.fieldmk2, event.player_index)
+		event.created_entity.destroy()
 		return
 	end
 end)
 
 
-game.onevent(defines.events.onguiclick, function(event)
-	local index = glob.treefarm.tmpData.fieldmk2Index
-	local player = game.players[event.element.playerindex]
+game.on_event(defines.events.on_gui_click, function(event)
+	local index = global.treefarm.tmpData.fieldmk2Index
+	local player = game.players[event.element.player_index]
 	if event.element.name == "okButton" then
 		if player.gui.center.fieldmk2Root ~= nil then
 			player.gui.center.fieldmk2Root.destroy()
 			destroyOverlay()
 		end
 	elseif event.element.name == "toggleActiveBut" then
-		if glob.treefarm.fieldmk2[index].active == true then
-			glob.treefarm.fieldmk2[index].active = false
-			mk2CancelDecontruction(glob.treefarm.fieldmk2[index])
+		if global.treefarm.fieldmk2[index].active == true then
+			global.treefarm.fieldmk2[index].active = false
+			mk2CancelDecontruction(global.treefarm.fieldmk2[index])
 			player.gui.center.fieldmk2Root.fieldmk2Table.colLabel2.caption = "not active"
 		else
-			glob.treefarm.fieldmk2[index].active = true
-			mk2MarkDeconstruction(glob.treefarm.fieldmk2[index])
+			global.treefarm.fieldmk2[index].active = true
+			mk2MarkDeconstruction(global.treefarm.fieldmk2[index])
 			player.gui.center.fieldmk2Root.fieldmk2Table.colLabel2.caption = "active"
 		end
 		destroyOverlay()
-		createOverlay(glob.treefarm.fieldmk2[index])
+		createOverlay(global.treefarm.fieldmk2[index])
 	elseif event.element.name == "incAreaBut" then
-		if glob.treefarm.fieldmk2[index].areaRadius < 9 then
-			glob.treefarm.fieldmk2[index].areaRadius = glob.treefarm.fieldmk2[index].areaRadius + 1
+		if global.treefarm.fieldmk2[index].areaRadius < 9 then
+			global.treefarm.fieldmk2[index].areaRadius = global.treefarm.fieldmk2[index].areaRadius + 1
 			destroyOverlay()
-			createOverlay(glob.treefarm.fieldmk2[index])
+			createOverlay(global.treefarm.fieldmk2[index])
 		end
-		player.gui.center.fieldmk2Root.fieldmk2Table.areaLabel2.caption = glob.treefarm.fieldmk2[index].areaRadius
+		player.gui.center.fieldmk2Root.fieldmk2Table.areaLabel2.caption = global.treefarm.fieldmk2[index].areaRadius
 	elseif event.element.name == "decAreaBut" then
-		if glob.treefarm.fieldmk2[index].areaRadius > 1 then
-			glob.treefarm.fieldmk2[index].areaRadius = glob.treefarm.fieldmk2[index].areaRadius - 1
+		if global.treefarm.fieldmk2[index].areaRadius > 1 then
+			global.treefarm.fieldmk2[index].areaRadius = global.treefarm.fieldmk2[index].areaRadius - 1
 			destroyOverlay()
-			createOverlay(glob.treefarm.fieldmk2[index])
+			createOverlay(global.treefarm.fieldmk2[index])
 		end
-		player.gui.center.fieldmk2Root.fieldmk2Table.areaLabel2.caption = glob.treefarm.fieldmk2[index].areaRadius
+		player.gui.center.fieldmk2Root.fieldmk2Table.areaLabel2.caption = global.treefarm.fieldmk2[index].areaRadius
 	end
 end)
 
 
-game.onevent(defines.events.ontick, function(event)
-	if (glob.treefarm.requestLookUpTableUpdate == true) then
+game.on_event(defines.events.on_tick, function(event)
+	if (global.treefarm.requestLookUpTableUpdate == true) then
 		createSeedTypeLookUpTable()
-		glob.treefarm.requestLookUpTableUpdate = false
+		global.treefarm.requestLookUpTableUpdate = false
 	end
 
-	for _, seedType in pairs(glob.treefarm.isGrowing) do
+	for _, seedType in pairs(global.treefarm.isGrowing) do
 		if (seedType[1] ~= nil) and (event.tick >= seedType[1].nextUpdate)then
 			local removedEntity = table.remove(seedType, 1)
 			
@@ -258,11 +258,11 @@ game.onevent(defines.events.ontick, function(event)
 				seedTypeName = seedTypeLookUpTable[removedEntity.entity.name]
 				newState = removedEntity.state + 1
 
-				if newState <= #glob.treefarm.seedTypes[seedTypeName].states then
+				if newState <= #global.treefarm.seedTypes[seedTypeName].states then
 					local tmpPos = removedEntity.entity.position
-					local newEnt = game.createentity{name = glob.treefarm.seedTypes[seedTypeLookUpTable[removedEntity.entity.name]].states[newState], position = tmpPos}
+					local newEnt = game.get_surface(1).create_entity{name = global.treefarm.seedTypes[seedTypeLookUpTable[removedEntity.entity.name]].states[newState], position = tmpPos}
 					removedEntity.entity.destroy()
-					local deltaTime = math.ceil((math.random() * glob.treefarm.seedTypes[seedTypeName].randomGrowingTime + glob.treefarm.seedTypes[seedTypeName].basicGrowingTime) / removedEntity.efficiency)
+					local deltaTime = math.ceil((math.random() * global.treefarm.seedTypes[seedTypeName].randomGrowingTime + global.treefarm.seedTypes[seedTypeName].basicGrowingTime) / removedEntity.efficiency)
 					local updatedEntry =
 					{
 						entity = newEnt,
@@ -272,34 +272,34 @@ game.onevent(defines.events.ontick, function(event)
 					}
 					placeSeedIntoList(updatedEntry, seedTypeName)
 				elseif (isInMk2Range(removedEntity.entity.position)) then
-					removedEntity.entity.orderdeconstruction(game.forces.player)
+					removedEntity.entity.order_deconstruction(game.forces.player)
 				end
 			end
 		end
 	end
 
 
-	if (glob.treefarm.field[1] ~= nil) and (event.tick >= glob.treefarm.field[1].nextUpdate) then
-		if glob.treefarm.field[1].entity.valid then
+	if (global.treefarm.field[1] ~= nil) and (event.tick >= global.treefarm.field[1].nextUpdate) then
+		if global.treefarm.field[1].entity.valid then
 			fieldMaintainer(event.tick)
 		else
-			table.remove(glob.treefarm.field, 1)
+			table.remove(global.treefarm.field, 1)
 		end
 	end
 
-	if (glob.treefarm.fieldmk2[1] ~= nil) and (event.tick >= glob.treefarm.fieldmk2[1].nextUpdate) then
-		if glob.treefarm.fieldmk2[1].entity.valid then
+	if (global.treefarm.fieldmk2[1] ~= nil) and (event.tick >= global.treefarm.fieldmk2[1].nextUpdate) then
+		if global.treefarm.fieldmk2[1].entity.valid then
 			if not anyPlayerHasOpenUI() then
-				if glob.treefarm.fieldmk2[1].active == true then
+				if global.treefarm.fieldmk2[1].active == true then
 					fieldmk2Maintainer(event.tick)
 				else
-					glob.treefarm.fieldmk2[1].nextUpdate = event.tick + 60
-					local field = table.remove(glob.treefarm.fieldmk2, 1)
-					table.insert(glob.treefarm.fieldmk2, field)
+					global.treefarm.fieldmk2[1].nextUpdate = event.tick + 60
+					local field = table.remove(global.treefarm.fieldmk2, 1)
+					table.insert(global.treefarm.fieldmk2, field)
 				end
 			end
 		else
-			table.remove(glob.treefarm.fieldmk2, 1)
+			table.remove(global.treefarm.fieldmk2, 1)
 		end
 	end
 end)
@@ -320,13 +320,13 @@ function mk2MarkDeconstruction(field)
 	local fieldPos = {x = field.entity.position.x, y = field.entity.position.y}
 	local areaPosMin = {x = fieldPos.x - field.areaRadius - 1, y = fieldPos.y - field.areaRadius - 1}
 	local areaPosMax = {x = fieldPos.x + field.areaRadius + 1, y = fieldPos.y + field.areaRadius + 1}
-	local tmpEntities = game.findentitiesfiltered{area = {areaPosMin, areaPosMax}, type = "tree"}
+	local tmpEntities = game.find_entitiesfiltered{area = {areaPosMin, areaPosMax}, type = "tree"}
 
 	if #tmpEntities > 0 then
 		for i = 1, #tmpEntities do
-			for _, seedType in pairs(glob.treefarm.seedTypes) do
-				if (tmpEntities[i].name == seedType.states[#seedType.states]) and (tmpEntities[i].tobedeconstructed(game.forces.player) == false) then
-					tmpEntities[i].orderdeconstruction(game.forces.player)
+			for _, seedType in pairs(global.treefarm.seedTypes) do
+				if (tmpEntities[i].name == seedType.states[#seedType.states]) and (tmpEntities[i].to_be_deconstructed(game.forces.player) == false) then
+					tmpEntities[i].order_deconstruction(game.forces.player)
 				end
 			end
 		end
@@ -337,13 +337,13 @@ function mk2CancelDecontruction(field)
 	local fieldPos = {x = field.entity.position.x, y = field.entity.position.y}
 	local areaPosMin = {x = fieldPos.x - field.areaRadius - 1, y = fieldPos.y - field.areaRadius - 1}
 	local areaPosMax = {x = fieldPos.x + field.areaRadius + 1, y = fieldPos.y + field.areaRadius + 1}
-	local tmpEntities = game.findentitiesfiltered{area = {areaPosMin, areaPosMax}, type = "tree"}
+	local tmpEntities = game.find_entitiesfiltered{area = {areaPosMin, areaPosMax}, type = "tree"}
 
 	if #tmpEntities > 0 then
 		for i = 1, #tmpEntities do
-			for _, seedType in pairs(glob.treefarm.seedTypes) do
-				if (tmpEntities[i].name == seedType.states[#seedType.states]) and (tmpEntities[i].tobedeconstructed(game.forces.player) == true) then
-					tmpEntities[i].canceldeconstruction(game.forces.player)
+			for _, seedType in pairs(global.treefarm.seedTypes) do
+				if (tmpEntities[i].name == seedType.states[#seedType.states]) and (tmpEntities[i].to_be_deconstructed(game.forces.player) == true) then
+					tmpEntities[i].cancel_deconstruction(game.forces.player)
 				end
 			end
 		end
@@ -352,7 +352,7 @@ end
 
 
 function isInMk2Range(plantPos)
-	for _, field in ipairs(glob.treefarm.fieldmk2) do
+	for _, field in ipairs(global.treefarm.fieldmk2) do
 		if field.active == true then
 			local fieldPos = {x = field.entity.position.x, y = field.entity.position.y}
 			local areaPosMin = {x = fieldPos.x - field.areaRadius - 1, y = fieldPos.y - field.areaRadius - 1}
@@ -370,15 +370,15 @@ end
 
 function calcEfficiency(entity, fertilizerApplied)
 	local seedType = seedTypeLookUpTable[entity.name]
-	local currentTilename = game.gettile(entity.position.x, entity.position.y).name
+	local currentTilename = game.get_surface(1).get_tile(entity.position.x, entity.position.y).name
 
 	local efficiency
-	if glob.treefarm.seedTypes[seedType].efficiency[currentTilename] == nil then
-		return glob.treefarm.seedTypes[seedType].efficiency.other
+	if global.treefarm.seedTypes[seedType].efficiency[currentTilename] == nil then
+		return global.treefarm.seedTypes[seedType].efficiency.other
 	else
-		efficiency = glob.treefarm.seedTypes[seedType].efficiency[currentTilename]
+		efficiency = global.treefarm.seedTypes[seedType].efficiency[currentTilename]
 		if fertilizerApplied then
-			return efficiency + glob.treefarm.seedTypes[seedType].fertilizerBoost
+			return efficiency + global.treefarm.seedTypes[seedType].fertilizerBoost
 		else
 			return efficiency
 		end
@@ -387,36 +387,36 @@ end
 
 
 function placeSeedIntoList(entInfo, seedTypeName)
-	if #glob.treefarm.isGrowing[seedTypeName] > 1 then
-		for i = #glob.treefarm.isGrowing[seedTypeName], 1, -1 do
-			if glob.treefarm.isGrowing[seedTypeName][i].nextUpdate <= entInfo.nextUpdate then
-				table.insert(glob.treefarm.isGrowing[seedTypeName], i + 1, entInfo)
+	if #global.treefarm.isGrowing[seedTypeName] > 1 then
+		for i = #global.treefarm.isGrowing[seedTypeName], 1, -1 do
+			if global.treefarm.isGrowing[seedTypeName][i].nextUpdate <= entInfo.nextUpdate then
+				table.insert(global.treefarm.isGrowing[seedTypeName], i + 1, entInfo)
 				return
 			end
 		end
-		table.insert(glob.treefarm.isGrowing[seedTypeName], 1,  entInfo)
+		table.insert(global.treefarm.isGrowing[seedTypeName], 1,  entInfo)
 		return
-	elseif #glob.treefarm.isGrowing[seedTypeName] == 1 then
-		if glob.treefarm.isGrowing[seedTypeName][1].nextUpdate > entInfo.nextUpdate then
-			table.insert(glob.treefarm.isGrowing[seedTypeName], 1,  entInfo)
+	elseif #global.treefarm.isGrowing[seedTypeName] == 1 then
+		if global.treefarm.isGrowing[seedTypeName][1].nextUpdate > entInfo.nextUpdate then
+			table.insert(global.treefarm.isGrowing[seedTypeName], 1,  entInfo)
 			return
 		else
-			table.insert(glob.treefarm.isGrowing[seedTypeName], entInfo)
+			table.insert(global.treefarm.isGrowing[seedTypeName], entInfo)
 			return
 		end
 	else
-		table.insert(glob.treefarm.isGrowing[seedTypeName], entInfo)
+		table.insert(global.treefarm.isGrowing[seedTypeName], entInfo)
 		return
 	end
-	table.insert(glob.treefarm.isGrowing[seedTypeName], entInfo)
+	table.insert(global.treefarm.isGrowing[seedTypeName], entInfo)
 end
 
 
 function fieldMaintainer(tick)
 	-- SEEDPLANTING --
 	local seedInInv = {name ="DUMMY", amount = "DUMMY"}
-	for _,seedType in pairs(glob.treefarm.seedTypes) do
-		local newAmount = glob.treefarm.field[1].entity.getinventory(1).getitemcount(seedType.states[1])
+	for _,seedType in pairs(global.treefarm.seedTypes) do
+		local newAmount = global.treefarm.field[1].entity.get_inventory(1).get_item_count(seedType.states[1])
 		if newAmount > 0 then
 			seedInInv =
 			{
@@ -429,19 +429,19 @@ function fieldMaintainer(tick)
 
 	local seedPos = false
 	if seedInInv.name ~= "DUMMY" then
-		local fieldPos = {x = glob.treefarm.field[1].entity.position.x, y = glob.treefarm.field[1].entity.position.y}
+		local fieldPos = {x = global.treefarm.field[1].entity.position.x, y = global.treefarm.field[1].entity.position.y}
 		
 		local placed = false
-		if glob.treefarm.field[1].lastSeedPos == nil then
-			glob.treefarm.field[1].lastSeedPos = {x = 2, y = 1}
+		if global.treefarm.field[1].lastSeedPos == nil then
+			global.treefarm.field[1].lastSeedPos = {x = 2, y = 1}
 		end
-		local lastPos = {x = glob.treefarm.field[1].lastSeedPos.x, y = glob.treefarm.field[1].lastSeedPos.y}
+		local lastPos = {x = global.treefarm.field[1].lastSeedPos.x, y = global.treefarm.field[1].lastSeedPos.y}
 		for dx = lastPos.x, 7 do
 			for dy = 1, 7 do
-				if (game.canplaceentity{name = "germling", position = {fieldPos.x + dx - 0.5, fieldPos.y + dy - 0.5}}) then
+				if (game.get_surface(1).can_place_entity{name = "germling", position = {fieldPos.x + dx - 0.5, fieldPos.y + dy - 0.5}}) then
 					seedPos = {x = fieldPos.x + dx - 0.5, y = fieldPos.y + dy - 0.5}
 					placed = true
-					glob.treefarm.field[1].lastSeedPos = {x = dx, y = dy}
+					global.treefarm.field[1].lastSeedPos = {x = dx, y = dy}
 					break
 				end
 			end
@@ -453,10 +453,10 @@ function fieldMaintainer(tick)
 		if (placed == false) and (lastPos.x ~= 2) then
 			for dx = 2, lastPos.x - 1 do
 				for dy = 1, 7 do
-					if (game.canplaceentity{name = "germling", position = {fieldPos.x + dx - 0.5, fieldPos.y + dy - 0.5}}) then
+					if (game.get_surface(1).can_place_entity{name = "germling", position = {fieldPos.x + dx - 0.5, fieldPos.y + dy - 0.5}}) then
 						seedPos = {x = fieldPos.x + dx - 0.5, y = fieldPos.y + dy - 0.5}
 						placed = true
-						glob.treefarm.field[1].lastSeedPos = {x = dx, y = dy}
+						global.treefarm.field[1].lastSeedPos = {x = dx, y = dy}
 						break
 					end
 				end
@@ -469,19 +469,19 @@ function fieldMaintainer(tick)
 		if seedPos ~= false then
 
 			local seedTypeName = seedTypeLookUpTable[seedInInv.name]
-			local newEntity = game.createentity{name = seedInInv.name, position = seedPos}
+			local newEntity = game.get_surface(1).create_entity{name = seedInInv.name, position = seedPos}
 			local newFertilized = false
 
-			if (glob.treefarm.field[1].fertAmount <= 0) and (glob.treefarm.field[1].entity.getinventory(2).getitemcount("fertilizer") > 0) then
-				glob.treefarm.field[1].fertAmount = 1
-				glob.treefarm.field[1].entity.getinventory(2).remove{name = "fertilizer", count = 1}
+			if (global.treefarm.field[1].fertAmount <= 0) and (global.treefarm.field[1].entity.get_inventory(2).get_item_count("fertilizer") > 0) then
+				global.treefarm.field[1].fertAmount = 1
+				global.treefarm.field[1].entity.get_inventory(2).remove{name = "fertilizer", count = 1}
 			end
 
-			if glob.treefarm.field[1].fertAmount >= 0.1 then
-				glob.treefarm.field[1].fertAmount = glob.treefarm.field[1].fertAmount - 0.1
+			if global.treefarm.field[1].fertAmount >= 0.1 then
+				global.treefarm.field[1].fertAmount = global.treefarm.field[1].fertAmount - 0.1
 				newFertilized = true
-				if glob.treefarm.field[1].fertAmount < 0.1 then
-					glob.treefarm.field[1].fertAmount = 0
+				if global.treefarm.field[1].fertAmount < 0.1 then
+					global.treefarm.field[1].fertAmount = 0
 				end
 			end
  
@@ -491,42 +491,42 @@ function fieldMaintainer(tick)
 				entity = newEntity,
 				state = 1,
 				efficiency = newEfficiency,
-				nextUpdate = tick + math.ceil((math.random() * glob.treefarm.seedTypes[seedTypeName].randomGrowingTime + glob.treefarm.seedTypes[seedTypeName].basicGrowingTime) / newEfficiency)
+				nextUpdate = tick + math.ceil((math.random() * global.treefarm.seedTypes[seedTypeName].randomGrowingTime + global.treefarm.seedTypes[seedTypeName].basicGrowingTime) / newEfficiency)
 			}
-			glob.treefarm.field[1].entity.getinventory(1).remove{name = seedInInv.name, count = 1}
+			global.treefarm.field[1].entity.get_inventory(1).remove{name = seedInInv.name, count = 1}
 			placeSeedIntoList(entInfo, seedTypeName)
 		end
 	end
 
 	-- HARVESTING --
-	local fieldPos = {x = glob.treefarm.field[1].entity.position.x, y = glob.treefarm.field[1].entity.position.y}
-	local grownEntities = game.findentitiesfiltered{area = {fieldPos, {fieldPos.x + 8, fieldPos.y + 8}}, type = "tree"}
+	local fieldPos = {x = global.treefarm.field[1].entity.position.x, y = global.treefarm.field[1].entity.position.y}
+	local grownEntities = game.get_surface(1).find_entities_filtered{area = {fieldPos, {fieldPos.x + 8, fieldPos.y + 8}}, type = "tree"}
 	for _,entity in ipairs(grownEntities) do
-		for _,seedType in pairs(glob.treefarm.seedTypes) do
+		for _,seedType in pairs(global.treefarm.seedTypes) do
 			if entity.name == seedType.states[#seedType.states] then
 				local output = {name = seedType.output[1], amount = seedType.output[2]}
-				if (glob.treefarm.field[1].entity.getinventory(3).caninsert{name = output.name, count = output.amount}) and (50 - glob.treefarm.field[1].entity.getinventory(3).getitemcount(output.name) >= output.amount) then
-					glob.treefarm.field[1].entity.getinventory(3).insert{name = output.name, count = output.amount}
+				if (global.treefarm.field[1].entity.get_inventory(3).can_insert{name = output.name, count = output.amount}) and (50 - global.treefarm.field[1].entity.get_inventory(3).get_item_count(output.name) >= output.amount) then
+					global.treefarm.field[1].entity.get_inventory(3).insert{name = output.name, count = output.amount}
 					entity.destroy()
 				end
-				glob.treefarm.field[1].nextUpdate = tick + 60
-				local field = table.remove(glob.treefarm.field, 1)
-				table.insert(glob.treefarm.field, field)
+				global.treefarm.field[1].nextUpdate = tick + 60
+				local field = table.remove(global.treefarm.field, 1)
+				table.insert(global.treefarm.field, field)
 				return
 			end
 		end
 	end
-	glob.treefarm.field[1].nextUpdate = tick + 60
-	local field = table.remove(glob.treefarm.field, 1)
-	table.insert(glob.treefarm.field, field)
+	global.treefarm.field[1].nextUpdate = tick + 60
+	local field = table.remove(global.treefarm.field, 1)
+	table.insert(global.treefarm.field, field)
 end
 
 
 function fieldmk2Maintainer(tick)
 	-- SEEDPLANTING --
 	local seedInInv = {name ="DUMMY", amount = "DUMMY"}
-	for _,seedType in pairs(glob.treefarm.seedTypes) do
-		local newAmount = glob.treefarm.fieldmk2[1].entity.getitemcount(seedType.states[1])
+	for _,seedType in pairs(global.treefarm.seedTypes) do
+		local newAmount = global.treefarm.fieldmk2[1].entity.get_item_count(seedType.states[1])
 		if newAmount > 0 then
 			seedInInv =
 			{
@@ -539,33 +539,33 @@ function fieldmk2Maintainer(tick)
 
 	local seedPos = false
 	if seedInInv.name ~= "DUMMY" then
-		if glob.treefarm.fieldmk2[1].lastSeedPos == nil then
-			glob.treefarm.fieldmk2[1].lastSeedPos = {x = -glob.treefarm.fieldmk2[1].areaRadius, y = -glob.treefarm.fieldmk2[1].areaRadius}
+		if global.treefarm.fieldmk2[1].lastSeedPos == nil then
+			global.treefarm.fieldmk2[1].lastSeedPos = {x = -global.treefarm.fieldmk2[1].areaRadius, y = -global.treefarm.fieldmk2[1].areaRadius}
 		end
-		local fieldPos = {x = glob.treefarm.fieldmk2[1].entity.position.x, y = glob.treefarm.fieldmk2[1].entity.position.y}
+		local fieldPos = {x = global.treefarm.fieldmk2[1].entity.position.x, y = global.treefarm.fieldmk2[1].entity.position.y}
 		
 		local placed = false
-		local lastPos = {x = glob.treefarm.fieldmk2[1].lastSeedPos.x, y = glob.treefarm.fieldmk2[1].lastSeedPos.y}
+		local lastPos = {x = global.treefarm.fieldmk2[1].lastSeedPos.x, y = global.treefarm.fieldmk2[1].lastSeedPos.y}
 		
-		if lastPos.x < -glob.treefarm.fieldmk2[1].areaRadius then
-			lastPos.x = -glob.treefarm.fieldmk2[1].areaRadius
-		elseif lastPos.x > glob.treefarm.fieldmk2[1].areaRadius then
-			lastPos.x = glob.treefarm.fieldmk2[1].areaRadius
+		if lastPos.x < -global.treefarm.fieldmk2[1].areaRadius then
+			lastPos.x = -global.treefarm.fieldmk2[1].areaRadius
+		elseif lastPos.x > global.treefarm.fieldmk2[1].areaRadius then
+			lastPos.x = global.treefarm.fieldmk2[1].areaRadius
 		end
 
-		if lastPos.y < -glob.treefarm.fieldmk2[1].areaRadius then
-			lastPos.y = -glob.treefarm.fieldmk2[1].areaRadius
-		elseif lastPos.y > glob.treefarm.fieldmk2[1].areaRadius then
-			lastPos.y = glob.treefarm.fieldmk2[1].areaRadius
+		if lastPos.y < -global.treefarm.fieldmk2[1].areaRadius then
+			lastPos.y = -global.treefarm.fieldmk2[1].areaRadius
+		elseif lastPos.y > global.treefarm.fieldmk2[1].areaRadius then
+			lastPos.y = global.treefarm.fieldmk2[1].areaRadius
 		end
 
 
-		for dx = lastPos.x, glob.treefarm.fieldmk2[1].areaRadius do
-			for dy = -glob.treefarm.fieldmk2[1].areaRadius, glob.treefarm.fieldmk2[1].areaRadius do
-				if (game.canplaceentity{name = "germling", position = {fieldPos.x + dx - 0.5, fieldPos.y + dy - 0.5}}) then
+		for dx = lastPos.x, global.treefarm.fieldmk2[1].areaRadius do
+			for dy = -global.treefarm.fieldmk2[1].areaRadius, global.treefarm.fieldmk2[1].areaRadius do
+				if (game.can_place_entity{name = "germling", position = {fieldPos.x + dx - 0.5, fieldPos.y + dy - 0.5}}) then
 					seedPos = {x = fieldPos.x + dx - 0.5, y = fieldPos.y + dy - 0.5}
 					placed = true
-					glob.treefarm.fieldmk2[1].lastSeedPos = {x = dx, y = dy}
+					global.treefarm.fieldmk2[1].lastSeedPos = {x = dx, y = dy}
 					break
 				end
 			end
@@ -574,13 +574,13 @@ function fieldmk2Maintainer(tick)
 			end
 		end
 
-		if (placed == false) and (lastPos.x ~= -glob.treefarm.fieldmk2[1].areaRadius) then
-			for dx = -glob.treefarm.fieldmk2[1].areaRadius, lastPos.x - 1 do
-				for dy = -glob.treefarm.fieldmk2[1].areaRadius, glob.treefarm.fieldmk2[1].areaRadius do
-					if (game.canplaceentity{name = "germling", position = {fieldPos.x + dx - 0.5, fieldPos.y + dy - 0.5}}) then
+		if (placed == false) and (lastPos.x ~= -global.treefarm.fieldmk2[1].areaRadius) then
+			for dx = -global.treefarm.fieldmk2[1].areaRadius, lastPos.x - 1 do
+				for dy = -global.treefarm.fieldmk2[1].areaRadius, global.treefarm.fieldmk2[1].areaRadius do
+					if (game.can_place_entity{name = "germling", position = {fieldPos.x + dx - 0.5, fieldPos.y + dy - 0.5}}) then
 						seedPos = {x = fieldPos.x + dx - 0.5, y = fieldPos.y + dy - 0.5}
 						placed = true
-						glob.treefarm.fieldmk2[1].lastSeedPos = {x = dx, y = dy}
+						global.treefarm.fieldmk2[1].lastSeedPos = {x = dx, y = dy}
 						break
 					end
 				end
@@ -593,19 +593,19 @@ function fieldmk2Maintainer(tick)
 		if seedPos ~= false then
 
 			local seedTypeName = seedTypeLookUpTable[seedInInv.name]
-			local newEntity = game.createentity{name = seedInInv.name, position = seedPos}
+			local newEntity = game.create_entity{name = seedInInv.name, position = seedPos}
 			local newFertilized = false
 
-			if (glob.treefarm.fieldmk2[1].fertAmount <= 0) and (glob.treefarm.fieldmk2[1].entity.getinventory(1).getitemcount("fertilizer") > 0) then
-				glob.treefarm.fieldmk2[1].fertAmount = 1
-				glob.treefarm.fieldmk2[1].entity.getinventory(1).remove{name = "fertilizer", count = 1}
+			if (global.treefarm.fieldmk2[1].fertAmount <= 0) and (global.treefarm.fieldmk2[1].entity.get_inventory(1).get_item_count("fertilizer") > 0) then
+				global.treefarm.fieldmk2[1].fertAmount = 1
+				global.treefarm.fieldmk2[1].entity.get_inventory(1).remove{name = "fertilizer", count = 1}
 			end
 
-			if glob.treefarm.fieldmk2[1].fertAmount >= 0.1 then
-				glob.treefarm.fieldmk2[1].fertAmount = glob.treefarm.fieldmk2[1].fertAmount - 0.1
+			if global.treefarm.fieldmk2[1].fertAmount >= 0.1 then
+				global.treefarm.fieldmk2[1].fertAmount = global.treefarm.fieldmk2[1].fertAmount - 0.1
 				newFertilized = true
-				if glob.treefarm.fieldmk2[1].fertAmount < 0.1 then
-					glob.treefarm.fieldmk2[1].fertAmount = 0
+				if global.treefarm.fieldmk2[1].fertAmount < 0.1 then
+					global.treefarm.fieldmk2[1].fertAmount = 0
 				end
 			end
  
@@ -615,9 +615,9 @@ function fieldmk2Maintainer(tick)
 				entity = newEntity,
 				state = 1,
 				efficiency = newEfficiency,
-				nextUpdate = tick + math.ceil((math.random() * glob.treefarm.seedTypes[seedTypeName].randomGrowingTime + glob.treefarm.seedTypes[seedTypeName].basicGrowingTime) / newEfficiency)
+				nextUpdate = tick + math.ceil((math.random() * global.treefarm.seedTypes[seedTypeName].randomGrowingTime + global.treefarm.seedTypes[seedTypeName].basicGrowingTime) / newEfficiency)
 			}
-			glob.treefarm.fieldmk2[1].entity.getinventory(1).remove{name = seedInInv.name, count = 1}
+			global.treefarm.fieldmk2[1].entity.get_inventory(1).remove{name = seedInInv.name, count = 1}
 			placeSeedIntoList(entInfo, seedTypeName)
 		end
 	end
@@ -626,9 +626,9 @@ function fieldmk2Maintainer(tick)
 	-- HARVESTING --
 	-- is done in tree-growing function --
 
-	glob.treefarm.fieldmk2[1].nextUpdate = tick + 60
-	local field = table.remove(glob.treefarm.fieldmk2, 1)
-	table.insert(glob.treefarm.fieldmk2, field)
+	global.treefarm.fieldmk2[1].nextUpdate = tick + 60
+	local field = table.remove(global.treefarm.fieldmk2, 1)
+	table.insert(global.treefarm.fieldmk2, field)
 end
 
 
@@ -638,7 +638,7 @@ function canPlaceSeed(entInfo)
 		local pos = {x = entInfo.entity.position.x, y = entInfo.entity.position.y}
 		for dx = -entInfo.areaRadius, entInfo.areaRadius + 1 do
 			for dy = -entInfo.areaRadius, entInfo.areaRadius + 1 do
-				if (game.canplaceentity{name = "germling", position = {pos.x + dx - 0.5, pos.y + dy - 0.5}}) then
+				if (game.can_place_entity{name = "germling", position = {pos.x + dx - 0.5, pos.y + dy - 0.5}}) then
 					local tmpPos = {x = pos.x + dx - 0.5, y = pos.y + dy - 0.5}
 					return tmpPos
 				end
@@ -656,8 +656,8 @@ function canPlaceField(field)
 			if (x == 0) and ( y == 0) then
 				--do nothing
 			else
-				if not game.canplaceentity{name="wooden-chest", position = {fPosX + x, fPosY + y}} then
-					local playerEnt = game.findentitiesfiltered{area = {{fPosX + x - 1, fPosY + y - 1},{fPosX + x + 1, fPosY + y + 1}}, name="player"}
+				if not game.can_place_entity{name="wooden-chest", position = {fPosX + x, fPosY + y}} then
+					local playerEnt = game.find_entitiesfiltered{area = {{fPosX + x - 1, fPosY + y - 1},{fPosX + x + 1, fPosY + y + 1}}, name="player"}
 					if #playerEnt > 0 then
 						-- do nothing
 					else
@@ -668,7 +668,7 @@ function canPlaceField(field)
 		end
 	end
 	local blockingField = {}
-	blockingField = game.findentitiesfiltered{area = {{x = fPosX - 8, y = fPosY - 8}, {fPosX + 8, fPosY + 8}}, name="field-2"}
+	blockingField = game.find_entitiesfiltered{area = {{x = fPosX - 8, y = fPosY - 8}, {fPosX + 8, fPosY + 8}}, name="field-2"}
 	if #blockingField > 1 then
 		return
 	end
@@ -677,8 +677,8 @@ end
 
 
 function getSeedInInventory(fieldEnt)
-	for _,seedType in pairs(glob.treefarm.seedTypes) do
-		local newAmount = fieldEnt.getitemcount(seedType.states[1])
+	for _,seedType in pairs(global.treefarm.seedTypes) do
+		local newAmount = fieldEnt.get_item_count(seedType.states[1])
 		if newAmount > 0 then
 			local seed =
 			{
@@ -695,11 +695,11 @@ end
 function showFieldmk2GUI(index, playerIndex)
 	local player = game.players[playerIndex]
 	if player.gui.center.fieldmk2Root == nil then
-		local rootFrame = player.gui.center.add{type = "frame", name = "fieldmk2Root", caption = game.getlocalisedentityname("fieldmk2"), direction = "vertical"}
+		local rootFrame = player.gui.center.add{type = "frame", name = "fieldmk2Root", caption = game.get_localised_entity_name("fieldmk2"), direction = "vertical"}
 			local rootTable = rootFrame.add{type ="table", name = "fieldmk2Table", colspan = 4}
 				rootTable.add{type = "label", name = "colLabel1", caption = {"thisFieldIs"}}
 				local status = "active / not active"
-				if glob.treefarm.fieldmk2[index].active == true then
+				if global.treefarm.fieldmk2[index].active == true then
 					status = {"active"}
 				else
 					status = {"notActive"}
@@ -709,13 +709,13 @@ function showFieldmk2GUI(index, playerIndex)
 				rootTable.add{type = "label", name = "colLabel4", caption = ""}
 
 				rootTable.add{type = "label", name = "areaLabel1", caption = {"usedArea"}}
-				rootTable.add{type = "label", name = "areaLabel2", caption = glob.treefarm.fieldmk2[index].areaRadius}
+				rootTable.add{type = "label", name = "areaLabel2", caption = global.treefarm.fieldmk2[index].areaRadius}
 				rootTable.add{type = "button", name = "incAreaBut", caption = "+", style = "tf_smallerButtonFont"}
 				rootTable.add{type = "button", name = "decAreaBut", caption = "-", style = "tf_smallerButtonFont"}
 			rootFrame.add{type = "button", name = "okButton", caption = {"okButtonCaption"}, style = "tf_smallerButtonFont"}
 
 
-		createOverlay(glob.treefarm.fieldmk2[index])
+		createOverlay(global.treefarm.fieldmk2[index])
 	end
 end
 
@@ -725,32 +725,32 @@ function createOverlay(fieldTable)
 	local startPos = {x = fieldTable.entity.position.x - radius,
 					  y = fieldTable.entity.position.y - radius}
 
-	if glob.treefarm.overlayStack == nil then
-		glob.treefarm.overlayStack = {}
+	if global.treefarm.overlayStack == nil then
+		global.treefarm.overlayStack = {}
 	end
 
 	if fieldTable.active == true then
 		for i = 0, 2 * radius + 1 do
 			for j = 0, 2 * radius + 1 do
-				local overlay = game.createentity{name = "tf-overlay-green", position ={x = startPos.x + i, y = startPos.y + j}, force = game.forces.player}
-				table.insert(glob.treefarm.overlayStack, overlay)
+				local overlay = game.create_entity{name = "tf-overlay-green", position ={x = startPos.x + i, y = startPos.y + j}, force = game.forces.player}
+				table.insert(global.treefarm.overlayStack, overlay)
 			end
 		end
 	else
 		for i = 0, 2 * radius + 1 do
 			for j = 0, 2 * radius + 1 do
-				local overlay = game.createentity{name = "tf-overlay-red", position ={x = startPos.x + i, y = startPos.y + j}, force = game.forces.player}
-				table.insert(glob.treefarm.overlayStack, overlay)
+				local overlay = game.create_entity{name = "tf-overlay-red", position ={x = startPos.x + i, y = startPos.y + j}, force = game.forces.player}
+				table.insert(global.treefarm.overlayStack, overlay)
 			end
 		end
 	end
 end
 
 function destroyOverlay()
-	for _, overlay in ipairs(glob.treefarm.overlayStack) do
+	for _, overlay in ipairs(global.treefarm.overlayStack) do
 		if overlay.valid then
 			overlay.destroy()
 		end
 	end
-	glob.treefarm.overlayStack = {}
+	global.treefarm.overlayStack = {}
 end
